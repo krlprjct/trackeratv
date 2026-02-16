@@ -22,7 +22,7 @@ const Testimonials: React.FC = () => {
       document.body.style.overflow = 'unset';
     };
   }, [isVideoOpen]);
-  return
+return
   (
     <section className="py-24 bg-white" id="gallery">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
@@ -49,7 +49,7 @@ const Testimonials: React.FC = () => {
           {/* Карточка 1 */}
           <div className="md:col-span-2 md:row-span-2 relative rounded-[2rem] overflow-hidden group min-h-[300px]">
             <img
-              src="/images/gallery/big.jpg"
+              src="public/images/gallery/big.JPG"
               alt="Экспедиции TRACKER"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
