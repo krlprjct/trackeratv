@@ -22,7 +22,7 @@ const Testimonials: React.FC = () => {
       document.body.style.overflow = 'unset';
     };
   }, [isVideoOpen]);
-return (
+return(
     <section className="py-24 bg-white" id="gallery">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
         {/* Заголовок + кнопка видео */}
@@ -74,7 +74,7 @@ return (
           {/* Карточка 3 */}
           <div className="md:col-span-1 relative rounded-[2rem] overflow-hidden group min-h-[200px]">
             <img
-              src="/images/gallery/zakat.jpg"
+              src="/images/gallery/zakat.JPG"
               alt="Водные преграды"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
@@ -130,7 +130,7 @@ return (
               style={{ aspectRatio: '9 / 16' }}
             >
               <video controls autoPlay className="w-full h-full object-contain">
-                <source src="/video/waterfall.mp4" type="video/mp4" />
+                <source src="public/images/gallery/video.mov" type="video/mp4" />
                 Ваш браузер не поддерживает видео.
               </video>
             </div>

@@ -47,7 +47,7 @@ const Benefits: React.FC = () => {
               {/* Левая часть - Фото */}
               <div className="relative rounded-[2rem] overflow-hidden shadow-lg h-[480px] border border-white/10">
                   <img 
-                      src="components/assets/charact.JPG" 
+                      src="public/images/gallery/charact.JPG" 
                       alt="Двигатель Kubota" 
                       className="absolute inset-0 w-full h-full object-cover opacity-90"
                   />

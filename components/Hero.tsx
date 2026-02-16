@@ -7,7 +7,7 @@ const Hero: React.FC = () => {
       {/* Background Image */}
       <div className="absolute inset-0">
         <img 
-          src="components/assets/image1.png" 
+          src="public/images/gallery/image1.png" 
           alt="Вездеход TRACKER" 
           className="w-full h-full object-cover"
         />
