@@ -125,18 +125,6 @@ export default async function handler(
     return res.status(405).json({ ok: false, error: 'Method not allowed' });
   }
 
-  // CORS (только same-origin)
-  const origin = req.headers.origin;
-  const allowedOrigins = [
-    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '',
-    'http://localhost:3000',
-    'http://localhost:5173',
-  ].filter(Boolean);
-
-  if (origin && !allowedOrigins.some(allowed => origin.includes(allowed))) {
-    return res.status(403).json({ ok: false, error: 'Forbidden' });
-  }
-
   // Rate limiting
   const ip = (req.headers['x-forwarded-for'] as string)?.split(',')[0] || 'unknown';
   if (!checkRateLimit(ip)) {
