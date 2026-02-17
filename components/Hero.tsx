@@ -19,7 +19,7 @@ const Hero: React.FC = () => {
         
         {/* Заголовок */}
         <h1 className="font-bold tracking-tight leading-[0.9] text-[52px] md:text-[88px]">
-          Новый вездеход TRACKER
+          Новый вездеход <br/> TRACKER
         </h1>
         
         {/* Подзаголовок - короткий, без Kubota */}
