@@ -28,8 +28,6 @@ const ProductSpotlight: React.FC = () => {
   return (
     <section className="py-24 bg-[#FFFFFF]" id="price">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-        
-        {/* Контейнер с обводкой цвета слоновой кости */}
         <div className="relative w-full rounded-[3rem] bg-[#F2EDE8] border-8 border-[#F2EDE8] overflow-hidden min-h-[600px] py-16 px-6 md:px-16">
         
           <div className="text-center mb-16">
@@ -38,7 +36,6 @@ const ProductSpotlight: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
-              {/* Prices List - Белая карточка */}
               <div className="bg-white rounded-[2rem] p-2 shadow-xl">
                   <div className="p-6 md:p-8">
                      <h3 className="text-xs uppercase tracking-widest text-gray-400 mb-6 font-bold">Модельный ряд</h3>
@@ -48,13 +45,14 @@ const ProductSpotlight: React.FC = () => {
                      <PriceRow name="Максимальная АКПП" price="9 500 000 ₽" status="под заказ" />
                      <PriceRow name="Прицеп для перевозки" price="600 000 ₽" status="в наличии" />
                   </div>
-                  {/* Черная кнопка внутри карточки снизу */}
-                  <div className="bg-[#050505] text-white p-5 text-center rounded-t-[1.5rem] rounded-b-[1.5rem] cursor-pointer hover:bg-black transition-colors font-medium">
-                      Скачать полный прайс-лист
-                  </div>
+                  <a 
+                    href="#contacts"
+                    className="bg-[#050505] text-white p-5 text-center rounded-t-[1.5rem] rounded-b-[1.5rem] cursor-pointer hover:bg-black transition-colors font-medium block"
+                  >
+                    Записаться на тест-драйв
+                  </a>
               </div>
 
-              {/* Options - Справа */}
               <div className="flex flex-col justify-center py-4">
                   <h3 className="text-2xl font-bold mb-8 text-[#1C1C1C]">Дополнительные опции</h3>
                   <div className="space-y-4">

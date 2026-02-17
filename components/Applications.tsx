@@ -39,7 +39,7 @@ const features = [
   },
   {
     title: "Отечественные узлы",
-    desc: "Ступицы, карданы — ГАЗ/УАЗ. Запчасти в любом магазине.",
+    desc: "Ремонтопригодная конструкция. Сервис и запчасти доступны в регионах.",
     icon: <Wrench size={24} />,
   },
   {
@@ -54,9 +54,7 @@ const Applications: React.FC = () => {
     <section className="py-20 bg-white" id="benefits">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
         
-        {/* Почему Tracker */}
         <div className="flex flex-col md:flex-row gap-16 items-start">
-          {/* На мобилке обычный блок, на десктопе - sticky */}
           <div className="md:w-1/3 md:sticky md:top-24">
               <h2 className="text-4xl md:text-5xl font-bold text-[#1C1C1C] mb-6 leading-tight">
                 Почему покупают <span className="text-gray-400">TRACKER</span>?
@@ -87,7 +85,6 @@ const Applications: React.FC = () => {
            </div>
         </div>
 
-        {/* Задачи */}
         <div>
           <h2 className="text-3xl font-bold mb-10 text-[#1C1C1C]">Под какие задачи берут TRACKER</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

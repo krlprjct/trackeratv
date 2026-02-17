@@ -32,23 +32,20 @@ const Benefits: React.FC = () => {
   return (
     <section className="py-24 bg-[#FFFFFF]" id="specs">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-      
-        {/* Контейнер с обводкой цвета слоновой кости */}
         <div className="relative w-full rounded-[3rem] bg-[#0a0a0a] overflow-hidden py-16 px-6 md:px-16">
 
           <div className="text-center mb-12">
-             {/* Белый заголовок на темном фоне */}
              <h2 className="text-3xl md:text-5xl font-semibold mb-4 text-white">Технические характеристики</h2>
              <p className="text-gray-400">Японское качество и ремонтопригодность</p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
               
-              {/* Левая часть - Фото */}
               <div className="relative rounded-[2rem] overflow-hidden shadow-lg h-[480px] border border-white/10">
                   <img 
                       src="public/images/gallery/charact.JPG" 
                       alt="Двигатель Kubota" 
+                      loading="lazy"
                       className="absolute inset-0 w-full h-full object-cover opacity-90"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
@@ -60,17 +57,14 @@ const Benefits: React.FC = () => {
                   </div>
               </div>
 
-              {/* Правая часть - СВЕТЛАЯ КАРТОЧКА */}
               <div className="bg-white rounded-[2rem] p-2 shadow-xl">
                   <div className="p-6 md:p-8">
-                      {/* Ключевые характеристики */}
                       <div className="flex flex-col">
                           {keySpecs.map((s, i) => (
                               <SpecRow key={i} label={s.label} value={s.value} />
                           ))}
                       </div>
 
-                      {/* Дополнительные характеристики */}
                       {isExpanded && (
                           <div className="flex flex-col mt-4 pt-4 border-t border-gray-200">
                               {additionalSpecs.map((s, i) => (
@@ -79,7 +73,6 @@ const Benefits: React.FC = () => {
                           </div>
                       )}
 
-                      {/* Кнопка раскрытия */}
                       <button 
                           onClick={() => setIsExpanded(!isExpanded)}
                           className="mt-6 text-sm font-bold text-gray-400 hover:text-black transition-colors flex items-center gap-1"
@@ -89,12 +82,11 @@ const Benefits: React.FC = () => {
                       </button>
                   </div>
 
-                  {/* Черная кнопка - ТОЧНО КАК В КОМПЛЕКТАЦИЯХ */}
                   <a 
                       href="#contacts"
                       className="bg-[#050505] text-white p-5 text-center rounded-t-[1.5rem] rounded-b-[1.5rem] cursor-pointer hover:bg-black transition-colors font-medium block"
                   >
-                      Получить подбор под задачу
+                      Записаться на тест-драйв
                   </a>
               </div>
 
