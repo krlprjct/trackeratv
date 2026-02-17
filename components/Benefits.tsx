@@ -11,7 +11,6 @@ const keySpecs = [
 ];
 
 const additionalSpecs = [
-  { label: "Сцепление", value: "LUK (усиленное)" },
   { label: "Габариты (Д×Ш×В)", value: "3690 × 2510 × 2490 мм" },
   { label: "Сухой вес", value: "1780 кг" },
   { label: "Скорость (суша / вода)", value: "до 45 км/ч / до 5 км/ч" },

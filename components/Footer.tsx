@@ -263,20 +263,18 @@ const Footer: React.FC = () => {
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-12 gap-y-4 text-sm font-medium text-gray-600">
-                <a href="#" className="hover:text-black transition-colors">Главная</a>
-                <a href="#price" className="hover:text-black transition-colors">Лизинг</a>
-                <a href="#benefits" className="hover:text-black transition-colors">Модельный ряд</a>
-                <a href="#" className="hover:text-black transition-colors">Доставка</a>
-                <a href="#specs" className="hover:text-black transition-colors">Характеристики</a>
-                <a href="#" className="hover:text-black transition-colors">Сервис</a>
-                <a href="#price" className="hover:text-black transition-colors">Наличие</a>
-                <a href="#contacts" className="hover:text-black transition-colors">Контакты</a>
-            </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-12 gap-y-4 text-sm font-medium text-gray-600">
+              <a href="#" className="hover:text-black transition-colors">Главная</a>
+              <a href="#benefits" className="hover:text-black transition-colors">Модельный ряд</a>
+              <a href="#specs" className="hover:text-black transition-colors">Характеристики</a>
+              <a href="#price" className="hover:text-black transition-colors">Наличие</a>
+              <a href="#gallery" className="hover:text-black transition-colors">Галерея</a>
+              <a href="#contacts" className="hover:text-black transition-colors">Контакты</a>
+          </div>
          </div>
 
          <div className="text-xs text-gray-300 mt-12 pt-4 border-t border-gray-50 flex justify-between">
-            <span>© 2024 TRACKER. Все права защищены.</span>
+            <span>© 2026 TRACKER. Все права защищены.</span>
             <span>Политика конфиденциальности</span>
          </div>
        </div>
