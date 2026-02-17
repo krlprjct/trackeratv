@@ -48,7 +48,7 @@ return(
           {/* Карточка 1 */}
           <div className="md:col-span-2 md:row-span-2 relative rounded-[2rem] overflow-hidden group min-h-[300px]">
             <img
-              src="public/images/gallery/big.JPG"
+              src="/images/gallery/big.JPG"
               alt="Экспедиции TRACKER"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
@@ -130,7 +130,7 @@ return(
               style={{ aspectRatio: '9 / 16' }}
             >
               <video controls autoPlay className="w-full h-full object-contain">
-                <source src="public/images/gallery/video.mov" type="video/mp4" />
+                <source src="/images/gallery/video.mov" type="video/mp4" />
                 Ваш браузер не поддерживает видео.
               </video>
             </div>

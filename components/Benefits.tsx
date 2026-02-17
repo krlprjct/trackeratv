@@ -43,7 +43,7 @@ const Benefits: React.FC = () => {
               
               <div className="relative rounded-[2rem] overflow-hidden shadow-lg h-[480px] border border-white/10">
                   <img 
-                      src="public/images/gallery/charact.JPG" 
+                      src="/images/gallery/charact.JPG" 
                       alt="Двигатель Kubota" 
                       loading="lazy"
                       className="absolute inset-0 w-full h-full object-cover opacity-90"
