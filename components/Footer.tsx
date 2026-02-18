@@ -98,6 +98,16 @@ const Footer: React.FC = () => {
     setErrors(newErrors);
   };
 
+  const getButtonText = (): string => {
+    if (isSubmitting) return 'Отправка...';
+    switch (formData.requestType) {
+      case 'testdrive': return 'Записаться на тест-драйв';
+      case 'selection': return 'Получить подбор';
+      case 'both': return 'Записаться на тест-драйв';
+      default: return 'Записаться на тест-драйв';
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setTouched({ name: true, phone: true, requestType: true, clientType: true });
@@ -232,7 +242,7 @@ const Footer: React.FC = () => {
                       type="submit" disabled={isSubmitting}
                       className="w-full bg-[#FF4D4D] hover:bg-red-600 text-white font-bold py-5 rounded-xl transition-all flex items-center justify-center gap-2 mt-2 shadow-lg shadow-red-500/20 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        {isSubmitting ? 'Отправка...' : 'Записаться на тест-драйв'}
+                        {getButtonText()}
                         <Send size={20} />
                     </button>
                     <p className="text-xs text-center text-gray-400 mt-3">
@@ -258,7 +268,7 @@ const Footer: React.FC = () => {
                     </div>
                     <div className="flex items-center gap-2">
                         <ShieldCheck size={16} className="text-gray-400"/>
-                        <span className="font-bold">Гарантия 12 месяцев</span>
+                        <span className="font-bold">Гарантия 12 месяцев или 400 моточасов</span>
                     </div>
                 </div>
             </div>

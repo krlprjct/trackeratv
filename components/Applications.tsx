@@ -1,10 +1,10 @@
 import React from 'react';
-import { Cog, ShieldCheck, Wrench, Warehouse, LayoutDashboard, Snowflake } from 'lucide-react';
+import { Cog, ShieldCheck, Wrench, Warehouse, LayoutDashboard, Snowflake, Truck } from 'lucide-react';
 
 const tasks = [
   { 
     title: "Охота и рыбалка", 
-    desc: "Тихий ход не пугает дичь. Проходит сложные болота и выходит на воду.",
+    desc: "Тихий ход не пугает дичь. Проходит сложные болота и выходит с воды на лёд.",
   },
   { 
     title: "Работа в регионах", 
@@ -18,13 +18,13 @@ const tasks = [
 
 const features = [
   {
-    title: "Японский двигатель",
-    desc: "Kubota V1505. Миллионник. Тяга с низов. Простой и надёжный.",
+    title: "Турбодизель Kubota",
+    desc: "Kubota V1505-t. Миллионник. Тяга с низов. Простой и надёжный.",
     icon: <Cog size={24} />,
   },
   {
     title: "Кузов-лодка",
-    desc: "Все системы внутри герметичного корпуса. Защищены от воды и ударов.",
+    desc: "Проходит сложные болота и выходит с воды на лёд. Герметичный корпус.",
     icon: <LayoutDashboard size={24} />,
   },
   {
@@ -34,17 +34,17 @@ const features = [
   },
   {
     title: "Комфорт в салоне",
-    desc: "Низкий уровень шума, панорамный обзор. Штатный отопитель.",
+    desc: "Низкий уровень шума, панорамный обзор, штатный независимый отопитель.",
     icon: <Snowflake size={24} />,
   },
   {
-    title: "Отечественные узлы",
-    desc: "Ремонтопригодная конструкция. Сервис и запчасти доступны в регионах.",
-    icon: <Wrench size={24} />,
+    title: "Российское производство",
+    desc: "Сделано в России. Бортоповоротная схема для манёвренности. Транспортировка на прицепе.",
+    icon: <Truck size={24} />,
   },
   {
-    title: "Юрлица и лизинг",
-    desc: "Работаем с НДС 20%. Полный пакет документов.",
+    title: "НДС и лизинг",
+    desc: "НДС 22% и лизинг для юрлиц. Полный пакет документов.",
     icon: <ShieldCheck size={24} />,
   },
 ];
@@ -85,7 +85,7 @@ const Applications: React.FC = () => {
            </div>
         </div>
 
-        <div>
+        <div className="mt-20">
           <h2 className="text-3xl font-bold mb-10 text-[#1C1C1C]">Под какие задачи берут TRACKER</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {tasks.map((task, idx) => (

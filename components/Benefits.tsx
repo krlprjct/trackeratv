@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
 const keySpecs = [
-  { label: "Двигатель", value: "Kubota V1505 (Япония)" },
+  { label: "Двигатель", value: "Турбодизель Kubota V1505-t (Япония)" },
   { label: "Мощность / объём", value: "44.3 л.с. / 1498 см³" },
   { label: "Коробка передач", value: "МКПП 5-ст." },
   { label: "Клиренс", value: "620 мм" },
@@ -35,7 +35,7 @@ const Benefits: React.FC = () => {
 
           <div className="text-center mb-12">
              <h2 className="text-3xl md:text-5xl font-semibold mb-4 text-white">Технические характеристики</h2>
-             <p className="text-gray-400">Японское качество и ремонтопригодность</p>
+             <p className="text-gray-400">Гарантия 12 месяцев или 400 моточасов</p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
