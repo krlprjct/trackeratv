@@ -58,3 +58,13 @@
   <script type="module" src="/index.tsx"></script>
 </body>
 </html>
+
+/* Плавная прокрутка для всех якорей */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Отступ сверху при переходе по якорю (чтобы не закрывал navbar) */
+section[id] {
+  scroll-margin-top: 80px;
+}
