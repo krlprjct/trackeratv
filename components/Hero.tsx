@@ -56,26 +56,30 @@ const Hero: React.FC = () => {
            </a>
         </div>
 
-        <div className="grid grid-cols-2 md:flex md:items-center gap-4 md:gap-12 bg-black/40 backdrop-blur-md rounded-2xl md:rounded-3xl py-4 px-5 md:py-8 md:px-16 border border-white/10 w-full md:w-fit mt-8 md:mt-16">
-           
-           <div className="flex flex-col items-start justify-center min-h-[60px]">
-              <span className="text-base sm:text-xl md:text-3xl lg:text-4xl font-bold text-white whitespace-nowrap leading-none">Турбодизель Kubota</span>
-              <span className="text-[11px] md:text-xs text-gray-400 uppercase tracking-[0.06em] mt-1.5 md:mt-2">Японское качество</span>
-           </div>
-           
-           <div className="hidden md:block w-px h-12 md:h-16 bg-white/20"></div>
-           
-           <div className="flex flex-col items-start justify-center min-h-[60px]">
-              <span className="text-base sm:text-xl md:text-3xl lg:text-4xl font-bold text-white whitespace-nowrap leading-none">до 1000 кг</span>
-              <span className="text-[11px] md:text-xs text-gray-400 uppercase tracking-[0.06em] mt-1.5 md:mt-2">грузоподъёмность</span>
-           </div>
-           
-           <div className="hidden md:block w-px h-12 md:h-16 bg-white/20"></div>
+        {/* Stats Grid - вертикальный на мобилке */}
+        <div className="flex flex-col md:flex md:flex-row md:items-center gap-3 md:gap-12 bg-black/40 backdrop-blur-md rounded-2xl md:rounded-3xl py-5 px-5 md:py-8 md:px-16 border border-white/10 w-full md:w-fit mt-8 md:mt-16">
+          
+          {/* Турбодизель Kubota */}
+          <div className="flex flex-col items-start justify-center">
+              <span className="text-xl md:text-3xl lg:text-4xl font-bold text-white whitespace-nowrap leading-none">Турбодизель Kubota</span>
+              <span className="text-xs md:text-xs text-gray-400 uppercase tracking-[0.06em] mt-1.5">Японское качество</span>
+          </div>
+          
+          <div className="hidden md:block w-px h-12 md:h-16 bg-white/20"></div>
+          
+          {/* до 1000 кг */}
+          <div className="flex flex-col items-start justify-center">
+              <span className="text-xl md:text-3xl lg:text-4xl font-bold text-white whitespace-nowrap leading-none">до 1000 кг</span>
+              <span className="text-xs md:text-xs text-gray-400 uppercase tracking-[0.06em] mt-1.5">грузоподъёмность</span>
+          </div>
+          
+          <div className="hidden md:block w-px h-12 md:h-16 bg-white/20"></div>
 
-           <div className="flex flex-col items-start justify-center min-h-[60px] col-span-2 md:col-span-1">
-              <span className="text-base sm:text-xl md:text-3xl lg:text-4xl font-bold text-white whitespace-nowrap leading-none">до 1000 км</span>
-              <span className="text-[11px] md:text-xs text-gray-400 uppercase tracking-[0.06em] mt-1.5 md:mt-2">запас хода</span>
-           </div>
+          {/* до 1000 км */}
+          <div className="flex flex-col items-start justify-center">
+              <span className="text-xl md:text-3xl lg:text-4xl font-bold text-white whitespace-nowrap leading-none">до 1000 км</span>
+              <span className="text-xs md:text-xs text-gray-400 uppercase tracking-[0.06em] mt-1.5">запас хода</span>
+          </div>
 
         </div>
       </div>

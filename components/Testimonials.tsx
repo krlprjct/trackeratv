@@ -101,24 +101,25 @@ return(
 
       {/* Модалка видео */}
       {isVideoOpen && (
-        <div
+        <div 
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4"
           onClick={closeVideo}
           role="dialog"
           aria-modal="true"
           aria-labelledby="video-modal-title"
         >
-          <div
+          <div 
             className="relative w-full md:w-auto"
             style={{ maxWidth: 'min(92vw, 420px)', maxHeight: '82vh' }}
             onClick={(e) => e.stopPropagation()}
           >
+            {/* Кнопка закрытия - видна всегда */}
             <button
               onClick={closeVideo}
-              className="absolute -top-12 right-0 text-white hover:text-[#FF4D4D] transition-colors focus:outline-none focus:ring-2 focus:ring-white rounded-full p-2"
+              className="absolute -top-2 -right-2 z-10 w-10 h-10 bg-white rounded-full flex items-center justify-center text-black hover:bg-gray-200 transition-colors shadow-lg"
               aria-label="Закрыть видео"
             >
-              <X size={32} />
+              <X size={24} strokeWidth={2.5} />
             </button>
 
             <h3 id="video-modal-title" className="sr-only">
