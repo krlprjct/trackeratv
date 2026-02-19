@@ -239,11 +239,12 @@ const Footer: React.FC = () => {
                     </div>
 
                     <button 
-                      type="submit" disabled={isSubmitting}
-                      className="w-full bg-[#FF4D4D] hover:bg-red-600 text-white font-bold py-5 rounded-xl transition-all flex items-center justify-center gap-2 mt-2 shadow-lg shadow-red-500/20 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                      type="submit" 
+                      disabled={isSubmitting}
+                      className="w-full bg-[#FF4D4D] hover:bg-red-600 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 mt-2 shadow-lg shadow-red-500/20 disabled:opacity-50 disabled:cursor-not-allowed py-4 px-4 text-base md:py-5 md:text-lg"
                     >
-                        {getButtonText()}
-                        <Send size={20} />
+                        <span className="truncate">{getButtonText()}</span>
+                        <Send size={18} className="flex-shrink-0" />
                     </button>
                     <p className="text-xs text-center text-gray-400 mt-3">
                         Нажимая кнопку, вы соглашаетесь с политикой обработки данных.

@@ -113,13 +113,13 @@ return(
             style={{ maxWidth: 'min(92vw, 420px)', maxHeight: '82vh' }}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Кнопка закрытия - видна всегда */}
+            {/* Красивая кнопка закрытия */}
             <button
               onClick={closeVideo}
-              className="absolute -top-2 -right-2 z-10 w-10 h-10 bg-white rounded-full flex items-center justify-center text-black hover:bg-gray-200 transition-colors shadow-lg"
+              className="absolute -top-3 -right-3 z-10 w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/20 hover:scale-110 transition-all shadow-xl group"
               aria-label="Закрыть видео"
             >
-              <X size={24} strokeWidth={2.5} />
+              <X size={24} strokeWidth={2} className="group-hover:rotate-90 transition-transform duration-300" />
             </button>
 
             <h3 id="video-modal-title" className="sr-only">
