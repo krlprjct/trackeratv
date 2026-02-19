@@ -36,12 +36,12 @@ const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, ans
         <span className="text-lg md:text-xl font-bold text-[#1C1C1C] group-hover:text-[#FF4D4D] transition-colors">
           {question}
         </span>
-        <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-500 ${isOpen ? 'bg-[#FF4D4D] text-white rotate-180' : 'bg-gray-100 text-black'}`}>
+        <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ${isOpen ? 'bg-[#FF4D4D] text-white rotate-180' : 'bg-gray-100 text-black'}`}>
           {isOpen ? <Minus size={18} /> : <Plus size={18} />}
         </div>
       </button>
       <div 
-        className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-48 opacity-100 mb-6' : 'max-h-0 opacity-0'}`}
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-48 opacity-100 mb-6' : 'max-h-0 opacity-0'}`}
       >
         <p className="text-gray-600 text-base md:text-lg leading-relaxed max-w-3xl">
           {answer}

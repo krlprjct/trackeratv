@@ -13,13 +13,3 @@ root.render(
     <App />
   </React.StrictMode>
 );
-
-/* Плавная прокрутка для всех якорей */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Отступ сверху при переходе по якорю (чтобы не закрывал navbar) */
-section[id] {
-  scroll-margin-top: 80px;
-}
