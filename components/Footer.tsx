@@ -101,10 +101,10 @@ const Footer: React.FC = () => {
   const getButtonText = (): string => {
     if (isSubmitting) return 'Отправка...';
     switch (formData.requestType) {
-      case 'testdrive': return 'Записаться на тест-драйв';
+      case 'testdrive': return 'Записаться';
       case 'selection': return 'Получить подбор';
-      case 'both': return 'Записаться на тест-драйв';
-      default: return 'Записаться на тест-драйв';
+      case 'both': return 'Записаться';
+      default: return 'Записаться';
     }
   };
 
@@ -241,9 +241,9 @@ const Footer: React.FC = () => {
                     <button 
                       type="submit" 
                       disabled={isSubmitting}
-                      className="w-full bg-[#FF4D4D] hover:bg-red-600 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 mt-2 shadow-lg shadow-red-500/20 disabled:opacity-50 disabled:cursor-not-allowed py-4 px-4 text-base md:py-5 md:text-lg"
+                      className="w-full bg-[#FF4D4D] hover:bg-red-600 text-white font-bold py-4 px-4 rounded-xl transition-all flex items-center justify-center gap-2 mt-2 shadow-lg shadow-red-500/20 text-base disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        <span className="truncate">{getButtonText()}</span>
+                        {getButtonText()}
                         <Send size={18} className="flex-shrink-0" />
                     </button>
                     <p className="text-xs text-center text-gray-400 mt-3">
