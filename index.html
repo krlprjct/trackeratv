@@ -1,47 +1,57 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TRACKER — Новый вездеход</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-            },
-            colors: {
-              beige: {
-                50: '#FDFCFB',
-                100: '#F9F8F6',
-                200: '#F2F0EB',
-              },
-              luminous: {
-                red: '#FF4D4D',
-                dark: '#0A0A0A'
-              }
-            }
-          }
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TRACKER — Новый вездеход</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+      },
+      colors: {
+        beige: {
+          50: '#FDFCFB',
+          100: '#F9F8F6',
+          200: '#F2F0EB',
+        },
+        luminous: {
+          red: '#FF4D4D',
+          dark: '#0A0A0A'
         }
       }
-    </script>
-    <style>
-      /* Hide scrollbar for chrome/safari/opera */
-      .no-scrollbar::-webkit-scrollbar {
-        display: none;
-      }
-      /* Hide scrollbar for IE, Edge and Firefox */
-      .no-scrollbar {
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
-      }
-    </style>
-  <script type="importmap">
+    }
+  }
+}
+</script>
+<style>
+  /* Hide scrollbar for chrome/safari/opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Плавная прокрутка */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Отступ чтобы navbar не перекрывал секцию */
+  section[id] {
+    scroll-margin-top: 80px;
+  }
+</style>
+<script type="importmap">
 {
   "imports": {
     "react/": "https://esm.sh/react@^19.2.4/",
@@ -53,18 +63,8 @@
 </script>
 <link rel="stylesheet" href="/index.css">
 </head>
-  <body class="bg-[#F9F8F6] text-[#1C1C1C] antialiased">
-    <div id="root"></div>
-  <script type="module" src="/index.tsx"></script>
+<body class="bg-[#F9F8F6] text-[#1C1C1C] antialiased">
+<div id="root"></div>
+<script type="module" src="/index.tsx"></script>
 </body>
 </html>
-
-/* Плавная прокрутка для всех якорей */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Отступ сверху при переходе по якорю (чтобы не закрывал navbar) */
-section[id] {
-  scroll-margin-top: 80px;
-}
