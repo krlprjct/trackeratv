@@ -38,8 +38,8 @@ const galleryData: GalleryCategory[] = [
     alt: "Водные преграды",
     images: [
       "/images/gallery/image.png",
-      "/images/gallery/IMG_2587.HEIC",
-      "/images/gallery/IMG_2590.HEIC",
+      "/images/gallery/IMG_2587.JPG",
+      "/images/gallery/IMG_2590.JPG",
       "/images/gallery/IMG_E4435.JPG",
       "/images/gallery/IMG_4448.JPG"
     ]
@@ -52,7 +52,6 @@ const galleryData: GalleryCategory[] = [
       "/images/gallery/last.png",
       "/images/gallery/DSC01624.JPG",
       "/images/gallery/DSC01790.JPG",
-      "/images/gallery/IMG_7726.WEBP",
       "/images/gallery/IMG_E4406.JPG"
     ]
   }
