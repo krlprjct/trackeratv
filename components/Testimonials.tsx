@@ -11,48 +11,48 @@ interface GalleryCategory {
 const galleryData: GalleryCategory[] = [
   {
     title: "Экспедиции",
-    cover: "/images/gallery/big.JPG",
+    cover: "/images/gallery/big.webp",
     alt: "Экспедиции TRACKER",
     images: [
-      "/images/gallery/big.JPG",
-      "/images/gallery/IMG_E4497.JPG",
-      "/images/gallery/IMG_E4498.JPG",
-      "/images/gallery/IMG_E4504.JPG",
-      "/images/gallery/IMG_E4407.JPG"
+      "/images/gallery/big.webp",
+      "/images/gallery/IMG_E4497.webp",
+      "/images/gallery/IMG_E4498.webp",
+      "/images/gallery/IMG_E4504.webp",
+      "/images/gallery/IMG_E4407.webp"
     ]
   },
   {
     title: "Охотничьи угодья",
-    cover: "/images/gallery/long.jpg",
+    cover: "/images/gallery/long.webp",
     alt: "Охотничьи угодья",
     images: [
-      "/images/gallery/long.jpg",
-      "/images/gallery/IMG_0498.JPG",
-      "/images/gallery/IMG_8618.JPG",
-      "/images/gallery/LCVE4663.JPG"
+      "/images/gallery/long.webp",
+      "/images/gallery/IMG_0498.webp",
+      "/images/gallery/IMG_8618.webp",
+      "/images/gallery/LCVE4663.webp"
     ]
   },
   {
     title: "Водные преграды",
-    cover: "/images/gallery/image.png",
+    cover: "/images/gallery/image1.webp",
     alt: "Водные преграды",
     images: [
-      "/images/gallery/image.png",
-      "/images/gallery/IMG_2587.JPG",
-      "/images/gallery/IMG_2590.JPG",
-      "/images/gallery/IMG_E4435.JPG",
-      "/images/gallery/IMG_4448.JPG"
+      "/images/gallery/image1.webp",
+      "/images/gallery/IMG_2587.webp",
+      "/images/gallery/IMG_2590.webp",
+      "/images/gallery/IMG_E4435.webp",
+      "/images/gallery/IMG_4448.webp"
     ]
   },
   {
     title: "Бездорожье",
-    cover: "/images/gallery/last.png",
+    cover: "/images/gallery/last.webp",
     alt: "Бездорожье",
     images: [
-      "/images/gallery/last.png",
-      "/images/gallery/DSC01624.JPG",
-      "/images/gallery/DSC01790.JPG",
-      "/images/gallery/IMG_E4406.JPG"
+      "/images/gallery/last.webp",
+      "/images/gallery/DSC01624.webp",
+      "/images/gallery/DSC01790.webp",
+      "/images/gallery/IMG_E4406.webp"
     ]
   }
 ];
