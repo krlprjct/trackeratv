@@ -27,7 +27,7 @@ const Hero: React.FC = () => {
       
       <div className="absolute inset-0">
         <img 
-          src="/images/gallery/image1.png" 
+          src="/images/gallery/image1.webp" 
           alt="Вездеход TRACKER" 
           className="w-full h-full object-cover"
         />
