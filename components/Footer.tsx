@@ -246,8 +246,13 @@ const Footer: React.FC = () => {
                         {getButtonText()}
                         <Send size={18} className="flex-shrink-0" />
                     </button>
+                    
+                    {/* Согласие на обработку ПД */}
                     <p className="text-xs text-center text-gray-400 mt-3">
-                        Нажимая кнопку, вы соглашаетесь с политикой обработки данных.
+                        Нажимая кнопку, вы соглашаетесь с{' '}
+                        <a href="/privacy" target="_blank" className="text-[#FF4D4D] underline hover:text-red-600 transition-colors">
+                          политикой обработки персональных данных
+                        </a>
                     </p>
                 </form>
             </div>
@@ -284,9 +289,12 @@ const Footer: React.FC = () => {
           </div>
          </div>
 
-         <div className="text-xs text-gray-300 mt-12 pt-4 border-t border-gray-50 flex justify-between">
+         {/* Футер с ссылкой на политику */}
+         <div className="text-xs text-gray-300 mt-12 pt-4 border-t border-gray-50 flex flex-col sm:flex-row justify-between gap-2">
             <span>© 2026 TRACKER. Все права защищены.</span>
-            <span>Политика конфиденциальности</span>
+            <a href="/privacy" target="_blank" className="hover:text-black transition-colors">
+              Политика конфиденциальности
+            </a>
          </div>
        </div>
     </footer>
