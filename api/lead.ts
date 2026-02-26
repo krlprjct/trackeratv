@@ -116,6 +116,70 @@ ${data.utm_source || data.utm_medium || data.utm_campaign ? `<b>UTM:</b> ${data.
   return true;
 }
 
+// ← НОВАЯ ФУНКЦИЯ: Отправка на email через Resend
+async function sendToEmail(data: any): Promise<boolean> {
+  const RESEND_API_KEY = process.env.RESEND_API_KEY;
+  const EMAIL_TO = process.env.EMAIL_TO || 'zerbig66@yandex.ru';
+
+  if (!RESEND_API_KEY) {
+    console.warn('Resend API key not configured, skipping email');
+    return false;
+  }
+
+  const requestTypeLabels: Record<string, string> = {
+    selection: 'Подбор комплектации',
+    testdrive: 'Тест-драйв',
+    both: 'Подбор + тест-драйв',
+  };
+
+  const clientTypeLabels: Record<string, string> = {
+    individual: 'Физлицо',
+    legal: 'Юрлицо',
+    leasing: 'Лизинг',
+  };
+
+  const emailHtml = `
+<h2>🔔 Новая заявка с сайта TRACKER</h2>
+<p><strong>Что нужно:</strong> ${requestTypeLabels[data.request_type] || data.request_type}</p>
+<p><strong>Тип клиента:</strong> ${clientTypeLabels[data.client_type] || data.client_type}</p>
+<p><strong>Имя:</strong> ${data.name}</p>
+<p><strong>Телефон:</strong> ${formatPhone(data.phone)}</p>
+${data.usage ? `<p><strong>Сценарий:</strong> ${data.usage}</p>` : ''}
+<hr>
+${data.source ? `<p><strong>Источник:</strong> ${data.source}</p>` : ''}
+${data.page_url ? `<p><strong>Страница:</strong> ${data.page_url}</p>` : ''}
+${data.utm_source || data.utm_medium || data.utm_campaign ? `<p><strong>UTM:</strong> ${data.utm_source || '-'} / ${data.utm_medium || '-'} / ${data.utm_campaign || '-'}</p>` : ''}
+<p><strong>Время:</strong> ${new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' })}</p>
+  `;
+
+  try {
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${RESEND_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        from: 'TRACKER ATV <onboarding@resend.dev>',
+        to: [EMAIL_TO],
+        subject: `Заявка: ${data.name} (${requestTypeLabels[data.request_type]})`,
+        html: emailHtml
+      })
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      console.error('Resend API error:', error);
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error('Email error:', error);
+    return false;
+  }
+}
+
 export default async function handler(
   req: VercelRequest,
   res: VercelResponse
@@ -145,11 +209,14 @@ export default async function handler(
 
   try {
     // Отправка в Telegram
-    const success = await sendToTelegram(req.body);
+    const telegramSuccess = await sendToTelegram(req.body);
     
-    if (!success) {
+    if (!telegramSuccess) {
       throw new Error('Failed to send to Telegram');
     }
+
+    // Отправка на Email (не критично, если не отправится)
+    await sendToEmail(req.body);
 
     return res.status(200).json({ ok: true });
   } catch (error) {
