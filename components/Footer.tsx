@@ -145,7 +145,7 @@ const Footer: React.FC = () => {
       
       // Отправка события в Яндекс.Метрику
       if (typeof window !== 'undefined' && (window as any).ym) {
-        (window as any).ym(106964750, 'reachGoal', 'form_submit');
+        (window as any).ym(106811417, 'reachGoal', 'form_submit');
       }
       
       alert('✅ Заявка отправлена! Мы свяжемся с вами в ближайшее время.');
