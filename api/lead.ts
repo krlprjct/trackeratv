@@ -92,7 +92,7 @@ ${data.source ? `<b>Источник:</b> ${data.source}` : ''}
 ${data.page_url ? `<b>Страница:</b> ${data.page_url}` : ''}
 ${data.utm_source || data.utm_medium || data.utm_campaign ? `<b>UTM:</b> ${data.utm_source || '-'} / ${data.utm_medium || '-'} / ${data.utm_campaign || '-'}${data.utm_content ? ` / ${data.utm_content}` : ''}${data.utm_term ? ` / ${data.utm_term}` : ''}` : ''}
 
-<b>Время:</b> ${new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' })}`;
+<b>Время:</b> ${new Date().toLocaleString('ru-RU', { timeZone: 'Asia/Yekaterinburg' })}`;
 
   const response = await fetch(
     `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
