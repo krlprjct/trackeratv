@@ -6,6 +6,7 @@ interface FormData {
   phone: string;
   requestType: string;
   clientType: string;
+  consent: boolean; // ← ДОБАВЛЕНО
 }
 
 interface FormErrors {
@@ -13,6 +14,7 @@ interface FormErrors {
   phone?: string;
   requestType?: string;
   clientType?: string;
+  consent?: string; // ← ДОБАВЛЕНО
 }
 
 const Footer: React.FC = () => {
@@ -21,6 +23,7 @@ const Footer: React.FC = () => {
     phone: '',
     requestType: '',
     clientType: '',
+    consent: false, // ← ДОБАВЛЕНО
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -77,6 +80,7 @@ const Footer: React.FC = () => {
     if (phoneError) newErrors.phone = phoneError;
     if (!formData.requestType) newErrors.requestType = 'Выберите, что вам нужно';
     if (!formData.clientType) newErrors.clientType = 'Выберите тип клиента';
+    if (!formData.consent) newErrors.consent = 'Необходимо согласие на обработку данных'; // ← ДОБАВЛЕНО
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -94,6 +98,8 @@ const Footer: React.FC = () => {
       if (!formData.requestType) newErrors.requestType = 'Выберите, что вам нужно'; else delete newErrors.requestType;
     } else if (field === 'clientType') {
       if (!formData.clientType) newErrors.clientType = 'Выберите тип клиента'; else delete newErrors.clientType;
+    } else if (field === 'consent') {
+      if (!formData.consent) newErrors.consent = 'Необходимо согласие'; else delete newErrors.consent;
     }
     setErrors(newErrors);
   };
@@ -110,9 +116,10 @@ const Footer: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setTouched({ name: true, phone: true, requestType: true, clientType: true });
+    setTouched({ name: true, phone: true, requestType: true, clientType: true, consent: true });
     if (!validateForm()) return;
     setIsSubmitting(true);
+    
     try {
       const urlParams = new URLSearchParams(window.location.search);
       const response = await fetch('/api/lead', {
@@ -130,13 +137,19 @@ const Footer: React.FC = () => {
           utm_campaign: urlParams.get('utm_campaign') || '',
           utm_content: urlParams.get('utm_content') || '',
           utm_term: urlParams.get('utm_term') || '',
-          website: '',
         }),
       });
+      
       const data = await response.json();
       if (!response.ok || !data.ok) throw new Error(data.error || 'Ошибка отправки');
+      
+      // Отправка события в Яндекс.Метрику
+      if (typeof window !== 'undefined' && (window as any).ym) {
+        (window as any).ym(106964750, 'reachGoal', 'form_submit');
+      }
+      
       alert('✅ Заявка отправлена! Мы свяжемся с вами в ближайшее время.');
-      setFormData({ name: '', phone: '', requestType: '', clientType: '' });
+      setFormData({ name: '', phone: '', requestType: '', clientType: '', consent: false });
       setTouched({});
       setErrors({});
     } catch (error: any) {
@@ -175,6 +188,15 @@ const Footer: React.FC = () => {
 
             <div className="lg:w-1/2 bg-white rounded-3xl p-8 shadow-2xl relative z-10">
                 <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+                    {/* Honeypot для защиты от ботов */}
+                    <input 
+                      type="text" 
+                      name="website" 
+                      style={{ position: 'absolute', left: '-9999px' }}
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label className="block text-sm font-bold text-gray-700 mb-1 ml-1">
@@ -238,22 +260,35 @@ const Footer: React.FC = () => {
                         {touched.clientType && <ErrorMessage error={errors.clientType} />}
                     </div>
 
+                    {/* ЧЕКБОКС СОГЛАСИЯ */}
+                    <div className="pt-2">
+                        <label className="flex items-start gap-3 cursor-pointer group">
+                            <input 
+                              type="checkbox"
+                              checked={formData.consent}
+                              onChange={(e) => setFormData(prev => ({ ...prev, consent: e.target.checked }))}
+                              onBlur={() => handleBlur('consent')}
+                              className="mt-0.5 w-5 h-5 rounded border-2 border-gray-300 text-[#FF4D4D] focus:ring-2 focus:ring-[#FF4D4D] focus:ring-offset-2 cursor-pointer"
+                            />
+                            <span className="text-xs text-gray-600 leading-relaxed group-hover:text-gray-900 transition-colors">
+                              Я согласен на обработку{' '}
+                              <a href="/privacy" target="_blank" className="text-[#FF4D4D] underline hover:text-red-600">
+                                персональных данных
+                              </a>
+                              {' '}и получение информационных сообщений <span className="text-red-500">*</span>
+                            </span>
+                        </label>
+                        {touched.consent && <ErrorMessage error={errors.consent} />}
+                    </div>
+
                     <button 
                       type="submit" 
                       disabled={isSubmitting}
-                      className="w-full bg-[#FF4D4D] hover:bg-red-600 text-white font-bold py-4 px-4 rounded-xl transition-all flex items-center justify-center gap-2 mt-2 shadow-lg shadow-red-500/20 text-base disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full bg-[#FF4D4D] hover:bg-red-600 text-white font-bold py-4 px-4 rounded-xl transition-all flex items-center justify-center gap-2 mt-4 shadow-lg shadow-red-500/20 text-base disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         {getButtonText()}
                         <Send size={18} className="flex-shrink-0" />
                     </button>
-                    
-                    {/* Согласие на обработку ПД */}
-                    <p className="text-xs text-center text-gray-400 mt-3">
-                        Нажимая кнопку, вы соглашаетесь с{' '}
-                        <a href="/privacy" target="_blank" className="text-[#FF4D4D] underline hover:text-red-600 transition-colors">
-                          политикой обработки персональных данных
-                        </a>
-                    </p>
                 </form>
             </div>
          </div>
@@ -289,7 +324,6 @@ const Footer: React.FC = () => {
           </div>
          </div>
 
-         {/* Футер с ссылкой на политику */}
          <div className="text-xs text-gray-300 mt-12 pt-4 border-t border-gray-50 flex flex-col sm:flex-row justify-between gap-2">
             <span>© 2026 TRACKER. Все права защищены.</span>
             <a href="/privacy" target="_blank" className="hover:text-black transition-colors">
