@@ -8,7 +8,8 @@ import Benefits from './components/Benefits';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import FAQ from './components/FAQ';
-import Privacy from './components/Privacy'; // Добавь импорт
+import ConsentBanner from './components/ConsentBanner';
+import { useYandexMetrika } from './hooks/useYandexMetrika';
 
 const MainPage: React.FC = () => {
   return (
@@ -28,19 +29,20 @@ const MainPage: React.FC = () => {
 };
 
 const App: React.FC = () => {
+  useYandexMetrika();
+
   useEffect(() => {
-    // Глобальный smooth scroll
     const handleAnchorClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const anchor = target.closest('a[href^="#"]');
-      
+
       if (anchor && anchor.getAttribute('href') !== '#') {
         e.preventDefault();
         const href = anchor.getAttribute('href');
         const element = document.querySelector(href!);
-        
+
         if (element) {
-          element.scrollIntoView({ 
+          element.scrollIntoView({
             behavior: 'smooth',
             block: 'start'
           });
@@ -57,8 +59,8 @@ const App: React.FC = () => {
       <div className="min-h-screen bg-[#F9F8F6] font-sans selection:bg-red-200 selection:text-red-900">
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/privacy" element={<Privacy />} />
         </Routes>
+        <ConsentBanner />
       </div>
     </BrowserRouter>
   );

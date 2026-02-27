@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Send, MapPin, ShieldCheck, AlertCircle } from 'lucide-react';
+import { useYandexMetrika } from '../hooks/useYandexMetrika';
 
 interface FormData {
   name: string;
@@ -18,6 +19,7 @@ interface FormErrors {
 }
 
 const Footer: React.FC = () => {
+  const { reachGoal } = useYandexMetrika();
   const [formData, setFormData] = useState<FormData>({
     name: '',
     phone: '',
@@ -144,9 +146,7 @@ const Footer: React.FC = () => {
       if (!response.ok || !data.ok) throw new Error(data.error || 'Ошибка отправки');
       
       // Отправка события в Яндекс.Метрику
-      if (typeof window !== 'undefined' && (window as any).ym) {
-        (window as any).ym(106811417, 'reachGoal', 'form_submit');
-      }
+      reachGoal('form_submit');
       
       alert('✅ Заявка отправлена! Мы свяжемся с вами в ближайшее время.');
       setFormData({ name: '', phone: '', requestType: '', clientType: '', consent: false });
