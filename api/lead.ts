@@ -1,6 +1,11 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+// functions/api/lead.ts
+interface Env {
+  TELEGRAM_BOT_TOKEN: string;
+  TELEGRAM_CHAT_ID: string;
+  RESEND_API_KEY: string;
+  EMAIL_TO: string;
+}
 
-// In-memory rate limiting (простая защита от спама)
 const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
 
 function checkRateLimit(ip: string): boolean {
@@ -8,12 +13,12 @@ function checkRateLimit(ip: string): boolean {
   const limit = rateLimitStore.get(ip);
 
   if (!limit || now > limit.resetAt) {
-    rateLimitStore.set(ip, { count: 1, resetAt: now + 60000 }); // 1 минута
+    rateLimitStore.set(ip, { count: 1, resetAt: now + 60000 });
     return true;
   }
 
   if (limit.count >= 3) {
-    return false; // Больше 3 запросов в минуту
+    return false;
   }
 
   limit.count++;
@@ -28,46 +33,7 @@ function formatPhone(phone: string): string {
   return phone;
 }
 
-function validateRequest(body: any): { valid: boolean; errors?: string[] } {
-  const errors: string[] = [];
-
-  if (!body.name || typeof body.name !== 'string' || body.name.trim().length < 2) {
-    errors.push('Имя обязательно и должно содержать минимум 2 символа');
-  }
-
-  if (!body.phone || typeof body.phone !== 'string') {
-    errors.push('Телефон обязателен');
-  } else {
-    const cleaned = body.phone.replace(/\D/g, '');
-    if (cleaned.length !== 11) {
-      errors.push('Телефон должен содержать 11 цифр');
-    }
-  }
-
-  if (!body.request_type || typeof body.request_type !== 'string') {
-    errors.push('Выберите, что вам нужно');
-  }
-
-  if (!body.client_type || typeof body.client_type !== 'string') {
-    errors.push('Выберите тип клиента');
-  }
-
-  // Honeypot check (скрытое поле для ботов)
-  if (body.website) {
-    errors.push('Spam detected');
-  }
-
-  return errors.length > 0 ? { valid: false, errors } : { valid: true };
-}
-
-async function sendToTelegram(data: any): Promise<boolean> {
-  const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-  const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
-
-  if (!BOT_TOKEN || !CHAT_ID) {
-    throw new Error('Telegram credentials not configured');
-  }
-
+async function sendToTelegram(data: any, env: Env): Promise<boolean> {
   const requestTypeLabels: Record<string, string> = {
     selection: 'Подбор комплектации',
     testdrive: 'Тест-драйв',
@@ -86,43 +52,32 @@ async function sendToTelegram(data: any): Promise<boolean> {
 <b>Тип клиента:</b> ${clientTypeLabels[data.client_type] || data.client_type}
 <b>Имя:</b> ${data.name}
 <b>Телефон:</b> ${formatPhone(data.phone)}
-${data.usage ? `<b>Сценарий:</b> ${data.usage}` : ''}
 
 ${data.source ? `<b>Источник:</b> ${data.source}` : ''}
 ${data.page_url ? `<b>Страница:</b> ${data.page_url}` : ''}
-${data.utm_source || data.utm_medium || data.utm_campaign ? `<b>UTM:</b> ${data.utm_source || '-'} / ${data.utm_medium || '-'} / ${data.utm_campaign || '-'}${data.utm_content ? ` / ${data.utm_content}` : ''}${data.utm_term ? ` / ${data.utm_term}` : ''}` : ''}
+${data.utm_source || data.utm_medium || data.utm_campaign ? `<b>UTM:</b> ${data.utm_source || '-'} / ${data.utm_medium || '-'} / ${data.utm_campaign || '-'}` : ''}
 
 <b>Время:</b> ${new Date().toLocaleString('ru-RU', { timeZone: 'Asia/Yekaterinburg' })}`;
 
   const response = await fetch(
-    `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
+    `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        chat_id: CHAT_ID,
+        chat_id: env.TELEGRAM_CHAT_ID,
         text: message,
         parse_mode: 'HTML',
       }),
     }
   );
 
-  if (!response.ok) {
-    const error = await response.text();
-    console.error('Telegram API error:', error);
-    return false;
-  }
-
-  return true;
+  return response.ok;
 }
 
-// ← НОВАЯ ФУНКЦИЯ: Отправка на email через Resend
-async function sendToEmail(data: any): Promise<boolean> {
-  const RESEND_API_KEY = process.env.RESEND_API_KEY;
-  const EMAIL_TO = process.env.EMAIL_TO || 'zerbig66@yandex.ru';
-
-  if (!RESEND_API_KEY) {
-    console.warn('Resend API key not configured, skipping email');
+async function sendToEmail(data: any, env: Env): Promise<boolean> {
+  if (!env.RESEND_API_KEY) {
+    console.warn('Resend API key not configured');
     return false;
   }
 
@@ -140,15 +95,13 @@ async function sendToEmail(data: any): Promise<boolean> {
 
   const emailHtml = `
 <h2>🔔 Новая заявка с сайта TRACKER</h2>
-<p><strong>Что нужно:</strong> ${requestTypeLabels[data.request_type] || data.request_type}</p>
-<p><strong>Тип клиента:</strong> ${clientTypeLabels[data.client_type] || data.client_type}</p>
+<p><strong>Что нужно:</strong> ${requestTypeLabels[data.request_type]}</p>
+<p><strong>Тип клиента:</strong> ${clientTypeLabels[data.client_type]}</p>
 <p><strong>Имя:</strong> ${data.name}</p>
 <p><strong>Телефон:</strong> ${formatPhone(data.phone)}</p>
-${data.usage ? `<p><strong>Сценарий:</strong> ${data.usage}</p>` : ''}
 <hr>
 ${data.source ? `<p><strong>Источник:</strong> ${data.source}</p>` : ''}
-${data.page_url ? `<p><strong>Страница:</strong> ${data.page_url}</p>` : ''}
-${data.utm_source || data.utm_medium || data.utm_campaign ? `<p><strong>UTM:</strong> ${data.utm_source || '-'} / ${data.utm_medium || '-'} / ${data.utm_campaign || '-'}</p>` : ''}
+${data.utm_source ? `<p><strong>UTM:</strong> ${data.utm_source} / ${data.utm_medium} / ${data.utm_campaign}</p>` : ''}
 <p><strong>Время:</strong> ${new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' })}</p>
   `;
 
@@ -156,74 +109,94 @@ ${data.utm_source || data.utm_medium || data.utm_campaign ? `<p><strong>UTM:</st
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${RESEND_API_KEY}`,
+        'Authorization': `Bearer ${env.RESEND_API_KEY}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: 'TRACKER ATV <onboarding@resend.dev>',
-        to: [EMAIL_TO],
+        from: 'TRACKER ATV <noreply@trackeratv.ru>',
+        to: [env.EMAIL_TO || 'zerbig66@yandex.ru'],
         subject: `Заявка: ${data.name} (${requestTypeLabels[data.request_type]})`,
         html: emailHtml
       })
     });
 
-    if (!response.ok) {
-      const error = await response.text();
-      console.error('Resend API error:', error);
-      return false;
-    }
-
-    return true;
+    return response.ok;
   } catch (error) {
     console.error('Email error:', error);
     return false;
   }
 }
 
-export default async function handler(
-  req: VercelRequest,
-  res: VercelResponse
-) {
-  // Только POST запросы
-  if (req.method !== 'POST') {
-    return res.status(405).json({ ok: false, error: 'Method not allowed' });
-  }
+export async function onRequestPost(context: { request: Request; env: Env }) {
+  const { request, env } = context;
 
-  // Rate limiting
-  const ip = (req.headers['x-forwarded-for'] as string)?.split(',')[0] || 'unknown';
-  if (!checkRateLimit(ip)) {
-    return res.status(429).json({ 
-      ok: false, 
-      error: 'Слишком много запросов. Подождите минуту.' 
-    });
-  }
+  // CORS
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Content-Type': 'application/json',
+  };
 
-  // Валидация
-  const validation = validateRequest(req.body);
-  if (!validation.valid) {
-    return res.status(400).json({ 
-      ok: false, 
-      error: validation.errors?.join(', ') 
-    });
+  if (request.method === 'OPTIONS') {
+    return new Response(null, { headers });
   }
 
   try {
+    const data = await request.json();
+
+    // Валидация
+    if (!data.name || data.name.length < 2) {
+      return new Response(
+        JSON.stringify({ ok: false, error: 'Имя обязательно (минимум 2 символа)' }),
+        { status: 400, headers }
+      );
+    }
+
+    if (!data.phone || data.phone.length !== 11) {
+      return new Response(
+        JSON.stringify({ ok: false, error: 'Неверный формат телефона' }),
+        { status: 400, headers }
+      );
+    }
+
+    // Honeypot
+    if (data.website) {
+      return new Response(
+        JSON.stringify({ ok: false, error: 'Bot detected' }),
+        { status: 400, headers }
+      );
+    }
+
+    // Rate limiting
+    const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+    if (!checkRateLimit(ip)) {
+      return new Response(
+        JSON.stringify({ ok: false, error: 'Слишком много запросов. Подождите минуту.' }),
+        { status: 429, headers }
+      );
+    }
+
     // Отправка в Telegram
-    const telegramSuccess = await sendToTelegram(req.body);
+    const telegramSuccess = await sendToTelegram(data, env);
     
     if (!telegramSuccess) {
       throw new Error('Failed to send to Telegram');
     }
 
-    // Отправка на Email (не критично, если не отправится)
-    await sendToEmail(req.body);
+    // Отправка на Email (не критично)
+    await sendToEmail(data, env);
 
-    return res.status(200).json({ ok: true });
-  } catch (error) {
-    console.error('Error processing lead:', error);
-    return res.status(500).json({ 
-      ok: false, 
-      error: 'Не удалось отправить заявку. Попробуйте позже.' 
-    });
+    return new Response(
+      JSON.stringify({ ok: true }),
+      { status: 200, headers }
+    );
+
+  } catch (error: any) {
+    console.error('Error:', error);
+    return new Response(
+      JSON.stringify({ ok: false, error: 'Не удалось отправить заявку' }),
+      { status: 500, headers }
+    );
   }
 }
