@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, MapPin, ShieldCheck, AlertCircle } from 'lucide-react';
+import { Send, MapPin, ShieldCheck, AlertCircle, Phone } from 'lucide-react';
 import { useYandexMetrika } from '../hooks/useYandexMetrika';
 
 interface FormData {
@@ -303,6 +303,10 @@ const Footer: React.FC = () => {
                     Производство и продажа вездеходов для самых сложных задач. Надежность, проверенная севером.
                 </p>
                 <div className="space-y-2 text-sm text-[#1C1C1C]">
+                    <a href="tel:+79222200491" className="flex items-center gap-2 hover:text-[#FF4D4D] transition-colors group">
+                        <Phone size={16} className="text-gray-400 group-hover:text-[#FF4D4D]"/>
+                        <span className="font-bold">+7 (922) 220-04-91</span>
+                    </a>
                     <div className="flex items-center gap-2">
                         <MapPin size={16} className="text-gray-400"/>
                         <span className="font-bold">г. Екатеринбург</span>

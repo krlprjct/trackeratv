@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Phone } from 'lucide-react';
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -54,11 +54,27 @@ const Navbar: React.FC = () => {
             ))}
           </div>
 
-          {/* CTA + Бургер */}
+          {/* Телефон + CTA + Бургер */}
           <div className="flex items-center gap-2">
+            {/* Телефон — десктоп: текст, мобилка: иконка */}
+            <a
+              href="tel:+79222200491"
+              className="hidden md:flex items-center gap-1.5 text-xs font-bold tracking-wide hover:opacity-60 transition-opacity"
+            >
+              <Phone size={14} />
+              +7 (922) 220-04-91
+            </a>
+            <a
+              href="tel:+79222200491"
+              className="md:hidden w-10 h-10 flex items-center justify-center"
+              aria-label="Позвонить"
+            >
+              <Phone size={20} />
+            </a>
+
             {/* CTA кнопка */}
-            <a 
-              href="#contacts" 
+            <a
+              href="#contacts"
               className="bg-[#FF4D4D] hover:bg-red-600 text-white rounded-full font-semibold transition-all shadow-lg shadow-red-500/20 flex items-center
                 px-4 h-10 text-sm md:px-6 md:py-2.5 md:text-xs md:uppercase md:tracking-wide md:font-bold
               "
@@ -104,10 +120,17 @@ const Navbar: React.FC = () => {
                ))}
             </div>
             
-            <div className="mt-auto border-t pt-8 border-gray-100">
-               <a 
-                 href="#contacts" 
-                 onClick={() => setIsMobileMenuOpen(false)} 
+            <div className="mt-auto border-t pt-8 border-gray-100 space-y-3">
+               <a
+                 href="tel:+79222200491"
+                 className="flex items-center justify-center gap-2 w-full bg-[#1C1C1C] text-white py-4 rounded-xl font-bold uppercase tracking-wide"
+               >
+                 <Phone size={18} />
+                 +7 (922) 220-04-91
+               </a>
+               <a
+                 href="#contacts"
+                 onClick={() => setIsMobileMenuOpen(false)}
                  className="block text-center w-full bg-[#FF4D4D] text-white py-4 rounded-xl font-bold uppercase tracking-wide"
                >
                  Оставить заявку

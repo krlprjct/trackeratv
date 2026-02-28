@@ -9,6 +9,7 @@ import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import FAQ from './components/FAQ';
 import ConsentBanner from './components/ConsentBanner';
+import FloatingCallButton from './components/FloatingCallButton';
 import { useYandexMetrika } from './hooks/useYandexMetrika';
 
 const MainPage: React.FC = () => {
@@ -61,6 +62,7 @@ const App: React.FC = () => {
           <Route path="/" element={<MainPage />} />
         </Routes>
         <ConsentBanner />
+        <FloatingCallButton />
       </div>
     </BrowserRouter>
   );
