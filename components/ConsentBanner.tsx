@@ -64,9 +64,9 @@ const ConsentBanner = () => {
       }}
     >
       <p style={{ margin: 0, fontSize: '13px', color: '#d1d5db', flex: 1, minWidth: '180px', lineHeight: '1.4' }}>
-        Сайт использует технологии для улучшения работы.{' '}
+        Мы используем cookies для аналитики и улучшения сайта.{' '}
         <a href="/privacy" style={{ color: '#f87171', textDecoration: 'underline' }}>
-          Подробнее
+          Политика конфиденциальности
         </a>
       </p>
       <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>

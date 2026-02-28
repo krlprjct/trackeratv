@@ -126,7 +126,6 @@ const Navbar: React.FC = () => {
                  className="flex items-center justify-center gap-2 w-full bg-[#1C1C1C] text-white py-4 rounded-xl font-bold uppercase tracking-wide"
                >
                  <Phone size={18} />
-                 +7 (922) 220-04-91
                </a>
                <a
                  href="#contacts"
