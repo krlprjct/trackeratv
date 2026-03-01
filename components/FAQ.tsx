@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Plus, Minus } from 'lucide-react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 const faqData = [
   {
@@ -52,9 +53,11 @@ const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, ans
 };
 
 const FAQ: React.FC = () => {
+  const revealRef = useScrollReveal();
+
   return (
     <section className="py-24 bg-white">
-      <div className="max-w-4xl mx-auto px-6 md:px-12">
+      <div ref={revealRef} className="reveal max-w-4xl mx-auto px-6 md:px-12">
         <h2 className="text-4xl font-bold text-[#1C1C1C] mb-12 text-center">Частые вопросы</h2>
         <div className="flex flex-col">
           {faqData.map((item, idx) => (

@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Send, MapPin, ShieldCheck, AlertCircle, Phone } from 'lucide-react';
+import { Send, MapPin, ShieldCheck, AlertCircle } from 'lucide-react';
 import { useYandexMetrika } from '../hooks/useYandexMetrika';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 interface FormData {
   name: string;
   phone: string;
   requestType: string;
   clientType: string;
-  consent: boolean; // ← ДОБАВЛЕНО
+  consent: boolean;
 }
 
 interface FormErrors {
@@ -15,17 +16,19 @@ interface FormErrors {
   phone?: string;
   requestType?: string;
   clientType?: string;
-  consent?: string; // ← ДОБАВЛЕНО
+  consent?: string;
 }
 
 const Footer: React.FC = () => {
   const { reachGoal } = useYandexMetrika();
+  const formRevealRef = useScrollReveal();
+
   const [formData, setFormData] = useState<FormData>({
     name: '',
     phone: '',
     requestType: '',
     clientType: '',
-    consent: false, // ← ДОБАВЛЕНО
+    consent: false,
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -82,7 +85,7 @@ const Footer: React.FC = () => {
     if (phoneError) newErrors.phone = phoneError;
     if (!formData.requestType) newErrors.requestType = 'Выберите, что вам нужно';
     if (!formData.clientType) newErrors.clientType = 'Выберите тип клиента';
-    if (!formData.consent) newErrors.consent = 'Необходимо согласие на обработку данных'; // ← ДОБАВЛЕНО
+    if (!formData.consent) newErrors.consent = 'Необходимо согласие на обработку данных';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -145,7 +148,6 @@ const Footer: React.FC = () => {
       const data = await response.json();
       if (!response.ok || !data.ok) throw new Error(data.error || 'Ошибка отправки');
       
-      // Отправка события в Яндекс.Метрику
       reachGoal('form_submit');
       
       alert('✅ Заявка отправлена! Мы свяжемся с вами в ближайшее время.');
@@ -174,7 +176,7 @@ const Footer: React.FC = () => {
     <footer className="bg-white pt-20 pb-10" id="contacts">
        <div className="max-w-[1440px] mx-auto px-6 md:px-12">
          
-         <div className="bg-[#111] rounded-[2.5rem] p-8 md:p-16 mb-20 flex flex-col lg:flex-row gap-16 relative overflow-hidden">
+         <div ref={formRevealRef} className="reveal bg-[#111] rounded-[2.5rem] p-8 md:p-16 mb-20 flex flex-col lg:flex-row gap-16 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#FF4D4D] opacity-5 blur-[150px] rounded-full pointer-events-none"></div>
 
             <div className="lg:w-1/2 relative z-10">
@@ -188,7 +190,6 @@ const Footer: React.FC = () => {
 
             <div className="lg:w-1/2 bg-white rounded-3xl p-8 shadow-2xl relative z-10">
                 <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-                    {/* Honeypot для защиты от ботов */}
                     <input 
                       type="text" 
                       name="website" 
@@ -260,7 +261,6 @@ const Footer: React.FC = () => {
                         {touched.clientType && <ErrorMessage error={errors.clientType} />}
                     </div>
 
-                    {/* ЧЕКБОКС СОГЛАСИЯ */}
                     <div className="pt-2">
                         <label className="flex items-start gap-3 cursor-pointer group">
                             <input 
@@ -303,10 +303,6 @@ const Footer: React.FC = () => {
                     Производство и продажа вездеходов для самых сложных задач. Надежность, проверенная севером.
                 </p>
                 <div className="space-y-2 text-sm text-[#1C1C1C]">
-                    <a href="tel:+79222200491" className="flex items-center gap-2 hover:text-[#FF4D4D] transition-colors group">
-                        <Phone size={16} className="text-gray-400 group-hover:text-[#FF4D4D]"/>
-                        <span className="font-bold">+7 (922) 220-04-91</span>
-                    </a>
                     <div className="flex items-center gap-2">
                         <MapPin size={16} className="text-gray-400"/>
                         <span className="font-bold">г. Екатеринбург</span>

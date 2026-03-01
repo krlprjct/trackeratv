@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PlayCircle, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 interface GalleryCategory {
   title: string;
@@ -58,6 +59,8 @@ const galleryData: GalleryCategory[] = [
 ];
 
 const Testimonials: React.FC = () => {
+  const headerRef = useScrollReveal();
+  const gridRef = useScrollReveal({ threshold: 0.1 });
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [currentCategory, setCurrentCategory] = useState<GalleryCategory | null>(null);
@@ -146,7 +149,7 @@ const Testimonials: React.FC = () => {
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
         
         {/* Заголовок + кнопка видео */}
-        <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-3 md:mb-12 gap-3 md:gap-6 items-start">
+        <div ref={headerRef} className="reveal flex flex-col md:flex-row md:justify-between md:items-end mb-3 md:mb-12 gap-3 md:gap-6 items-start">
           <h2 className="text-4xl md:text-6xl font-bold text-[#1C1C1C] leading-none tracking-tight text-left">
             Создан для<br />реальных задач
           </h2>
@@ -162,7 +165,7 @@ const Testimonials: React.FC = () => {
         </div>
 
         {/* Сетка карточек */}
-        <div className="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-auto md:h-[600px]">
+        <div ref={gridRef} className="reveal grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-auto md:h-[600px]">
           {galleryData.map((category, idx) => (
             <div
               key={idx}

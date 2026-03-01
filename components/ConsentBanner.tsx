@@ -53,7 +53,8 @@ const ConsentBanner = () => {
         left: '0px',
         right: '0px',
         zIndex: 2147483647,
-        backgroundColor: '#1f2937',
+        backgroundColor: '#1f2937'
+        ,
         padding: '14px 20px',
         display: 'flex',
         alignItems: 'center',

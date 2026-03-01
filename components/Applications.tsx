@@ -1,5 +1,6 @@
 import React from 'react';
 import { Cog, ShieldCheck, Wrench, Warehouse, LayoutDashboard, Snowflake, Truck } from 'lucide-react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 const tasks = [
   { 
@@ -50,12 +51,16 @@ const features = [
 ];
 
 const Applications: React.FC = () => {
+  const titleRef = useScrollReveal();
+  const cardsRef = useScrollReveal({ stagger: 100 });
+  const tasksRef = useScrollReveal({ stagger: 120 });
+
   return (
     <section className="py-20 bg-white" id="benefits">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-        
+
         <div className="flex flex-col md:flex-row gap-16 items-start">
-          <div className="md:w-1/3 md:sticky md:top-24">
+          <div ref={titleRef} className="reveal md:w-1/3 md:sticky md:top-24">
               <h2 className="text-4xl md:text-5xl font-bold text-[#1C1C1C] mb-6 leading-tight">
                 Почему покупают <span className="text-gray-400">TRACKER</span>?
               </h2>
@@ -65,11 +70,11 @@ const Applications: React.FC = () => {
               </p>
           </div>
 
-           <div className="md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-4">
+           <div ref={cardsRef} className="reveal md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-4">
               {features.map((item, idx) => (
-                <div 
-                  key={idx} 
-                  className="bg-white p-8 rounded-[2rem] border border-gray-100 hover:border-gray-300 transition-colors"
+                <div
+                  key={idx}
+                  className="reveal-child bg-white p-8 rounded-[2rem] border border-gray-100 hover:border-gray-300 transition-colors"
                 >
                   <div className="w-10 h-10 bg-[#1C1C1C] text-white rounded-full flex items-center justify-center mb-6">
                     {item.icon}
@@ -85,11 +90,11 @@ const Applications: React.FC = () => {
            </div>
         </div>
 
-        <div className="mt-20">
+        <div ref={tasksRef} className="reveal mt-20">
           <h2 className="text-3xl font-bold mb-10 text-[#1C1C1C]">Под какие задачи берут TRACKER</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {tasks.map((task, idx) => (
-              <div key={idx} className="p-8 rounded-[2rem] bg-[#F5F5F7] hover:bg-[#F2EDE8] transition-colors">
+              <div key={idx} className="reveal-child p-8 rounded-[2rem] bg-[#F5F5F7] hover:bg-[#F2EDE8] transition-colors">
                 <h3 className="text-xl font-bold mb-3">{task.title}</h3>
                 <p className="text-gray-600 font-medium leading-relaxed text-sm">{task.desc}</p>
               </div>

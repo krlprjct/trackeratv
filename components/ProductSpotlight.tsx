@@ -1,5 +1,6 @@
 import React from 'react';
 import { Check } from 'lucide-react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 const PriceRow: React.FC<{ name: string; price: string; status: string; isHighlighted?: boolean }> = ({ name, price, status, isHighlighted }) => (
   <div className={`flex flex-col md:flex-row justify-between items-start md:items-center p-5 border-b border-gray-100 last:border-0 ${isHighlighted ? 'bg-[#FFF9F0] -mx-5 px-5 md:px-5 py-4 my-2 rounded-xl border-none' : 'py-5'}`}>
@@ -25,10 +26,12 @@ const OptionItem: React.FC<{ label: string }> = ({ label }) => (
 );
 
 const ProductSpotlight: React.FC = () => {
+  const revealRef = useScrollReveal();
+
   return (
     <section className="py-24 bg-[#FFFFFF]" id="price">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-        <div className="relative w-full rounded-[3rem] bg-[#F2EDE8] border-8 border-[#F2EDE8] overflow-hidden min-h-[600px] py-16 px-6 md:px-16">
+        <div ref={revealRef} className="reveal relative w-full rounded-[3rem] bg-[#F2EDE8] border-8 border-[#F2EDE8] overflow-hidden min-h-[600px] py-16 px-6 md:px-16">
         
           <div className="text-center mb-16">
              <h2 className="text-3xl md:text-5xl font-semibold mb-4 text-[#1C1C1C]">Комплектации и цены</h2>

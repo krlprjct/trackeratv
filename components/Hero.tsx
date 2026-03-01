@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 const Hero: React.FC = () => {
+  const revealRef = useScrollReveal({ threshold: 0.1 });
   // Плавный скролл для всех якорных ссылок
   useEffect(() => {
     const handleAnchorClick = (e: MouseEvent) => {
@@ -34,7 +36,7 @@ const Hero: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/30"></div>
       </div>
 
-      <div className="relative z-10 flex-grow flex flex-col justify-center items-start px-5 md:px-12 lg:px-24 pt-[70px] md:pt-32 pb-6 md:pb-10 max-w-[1440px] mx-auto w-full">
+      <div ref={revealRef} className="reveal relative z-10 flex-grow flex flex-col justify-center items-start px-5 md:px-12 lg:px-24 pt-[70px] md:pt-32 pb-6 md:pb-10 max-w-[1440px] mx-auto w-full">
         
         <h1 className="font-bold tracking-tight leading-[0.9] text-[52px] md:text-[88px]">
           Вездеход <br/> TRACKER

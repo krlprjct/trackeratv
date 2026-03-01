@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 const keySpecs = [
   { label: "Двигатель", value: "Турбодизель Kubota V1505-t (Япония)" },
@@ -27,11 +28,12 @@ const SpecRow: React.FC<{ label: string; value: string }> = ({ label, value }) =
 
 const Benefits: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const revealRef = useScrollReveal();
 
   return (
     <section className="py-24 bg-[#FFFFFF]" id="specs">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-        <div className="relative w-full rounded-[3rem] bg-[#0a0a0a] overflow-hidden py-16 px-6 md:px-16">
+        <div ref={revealRef} className="reveal relative w-full rounded-[3rem] bg-[#0a0a0a] overflow-hidden py-16 px-6 md:px-16">
 
           <div className="text-center mb-12">
              <h2 className="text-3xl md:text-5xl font-semibold mb-4 text-white">Технические характеристики</h2>

@@ -3,6 +3,7 @@
 interface Env {
   TELEGRAM_BOT_TOKEN: string;
   TELEGRAM_CHAT_ID: string;
+  TELEGRAM_CHAT_ID_2: string;
   RESEND_API_KEY: string;
   EMAIL_TO: string;
 }
@@ -135,7 +136,8 @@ ${data.utm_source || data.utm_medium || data.utm_campaign ? `<b>UTM:</b> ${data.
 
 <b>Время:</b> ${new Date().toLocaleString('ru-RU', { timeZone: 'Asia/Yekaterinburg' })}`;
 
-  const response = await fetch(
+  // Отправляем на основной чат
+  const response1 = await fetch(
     `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`,
     {
       method: 'POST',
@@ -148,7 +150,22 @@ ${data.utm_source || data.utm_medium || data.utm_campaign ? `<b>UTM:</b> ${data.
     }
   );
 
-  return response.ok;
+  // Отправляем на второй чат
+  const response2 = await fetch(
+    `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: env.TELEGRAM_CHAT_ID_2,
+        text: message,
+        parse_mode: 'HTML',
+      }),
+    }
+  );
+
+  // Достаточно, чтобы хотя бы одна отправка прошла
+  return response1.ok || response2.ok;
 }
 
 async function sendToEmail(data: Record<string, any>, env: Env): Promise<boolean> {

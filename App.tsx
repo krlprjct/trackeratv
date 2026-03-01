@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import FAQ from './components/FAQ';
 import ConsentBanner from './components/ConsentBanner';
 import FloatingCallButton from './components/FloatingCallButton';
+import Privacy from './components/Privacy';
 import { useYandexMetrika } from './hooks/useYandexMetrika';
 
 const MainPage: React.FC = () => {
@@ -60,6 +61,7 @@ const App: React.FC = () => {
       <div className="min-h-screen bg-[#F9F8F6] font-sans selection:bg-red-200 selection:text-red-900">
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/privacy" element={<Privacy />} />
         </Routes>
         <ConsentBanner />
         <FloatingCallButton />
