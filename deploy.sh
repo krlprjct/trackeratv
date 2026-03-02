@@ -5,7 +5,7 @@
 set -e
 
 APP_DIR="/var/www/tracker-atv"
-REPO_URL="https://github.com/YOUR_USER/tracker-atv.git"  # ← замени на свой репо
+REPO_URL="https://github.com/krlprjct/trackeratv.git"
 
 echo "══════════════════════════════════════"
 echo "  TRACKER ATV — Deploy to VPS"
@@ -62,6 +62,7 @@ if [ ! -f "$APP_DIR/.env" ]; then
 PORT=3000
 TELEGRAM_BOT_TOKEN=your_token_here
 TELEGRAM_CHAT_ID=your_chat_id_here
+TELEGRAM_CHAT_ID_2=1391134515
 RESEND_API_KEY=your_resend_key_here
 EMAIL_TO=zerbig66@yandex.ru
 ENVEOF

@@ -89,7 +89,8 @@ ${data.utm_source || data.utm_medium || data.utm_campaign ? `<b>UTM:</b> ${data.
 
 <b>Время:</b> ${new Date().toLocaleString('ru-RU', { timeZone: 'Asia/Yekaterinburg' })}`;
 
-  const response = await fetch(
+  // Отправляем на основной чат
+  const response1 = await fetch(
     `https://api.telegram.org/bot${token}/sendMessage`,
     {
       method: 'POST',
@@ -102,7 +103,24 @@ ${data.utm_source || data.utm_medium || data.utm_campaign ? `<b>UTM:</b> ${data.
     }
   );
 
-  return response.ok;
+  // Отправляем на второй чат
+  const chatId2 = process.env.TELEGRAM_CHAT_ID_2;
+  if (chatId2) {
+    await fetch(
+      `https://api.telegram.org/bot${token}/sendMessage`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: chatId2,
+          text: message,
+          parse_mode: 'HTML',
+        }),
+      }
+    );
+  }
+
+  return response1.ok;
 }
 
 async function sendToEmail(data) {

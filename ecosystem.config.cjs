@@ -13,6 +13,7 @@ module.exports = {
       // Эти значения ОБЯЗАТЕЛЬНО задать на сервере:
       // TELEGRAM_BOT_TOKEN: '',
       // TELEGRAM_CHAT_ID: '',
+      // TELEGRAM_CHAT_ID_2: '',
       // RESEND_API_KEY: '',
       // EMAIL_TO: '',
     },
