@@ -18,9 +18,9 @@ const FloatingCallButton: React.FC = () => {
       aria-label="Позвонить"
       className={`
         md:hidden fixed bottom-6 right-5 z-50
-        w-14 h-14 bg-[#FF4D4D] text-white rounded-full
+        w-14 h-14 bg-[#CC4422] text-white rounded-full
         flex items-center justify-center
-        shadow-lg shadow-red-500/30
+        shadow-lg shadow-orange-800/30
         transition-all duration-300
         active:scale-90
         ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}

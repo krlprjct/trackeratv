@@ -28,10 +28,11 @@ const Hero: React.FC = () => {
     <header className="relative w-full min-h-[95vh] rounded-b-[3rem] overflow-hidden bg-[#0a0a0a] text-white flex flex-col">
       
       <div className="absolute inset-0">
-        <img 
-          src="/images/gallery/image1.webp" 
-          alt="Вездеход TRACKER" 
-          className="w-full h-full object-cover"
+        <img
+          src="/images/gallery/image1.webp"
+          alt="Вездеход TRACKER"
+          className="w-full h-full object-cover object-[70%_center] md:object-center"
+          fetchPriority="high"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/30"></div>
       </div>

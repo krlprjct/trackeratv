@@ -58,7 +58,7 @@ const App: React.FC = () => {
 
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-[#F9F8F6] font-sans selection:bg-red-200 selection:text-red-900">
+      <div className="min-h-screen bg-[#F9F8F6] font-sans selection:bg-orange-200 selection:text-orange-900">
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/privacy" element={<Privacy />} />
