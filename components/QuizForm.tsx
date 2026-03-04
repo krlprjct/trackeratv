@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, ArrowLeft, CheckCircle, AlertCircle, MessageCircle } from 'lucide-react';
+import { Send, ArrowLeft, CheckCircle, AlertCircle, Phone } from 'lucide-react';
 import { useYandexMetrika } from '../hooks/useYandexMetrika';
 
 interface QuizData {
@@ -134,18 +134,13 @@ const QuizForm: React.FC = () => {
         <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
           Заявка отправлена!
         </h3>
-        <p className="text-gray-400 text-lg mb-8 max-w-sm mx-auto">
+        <p className="text-gray-400 text-lg mb-6 max-w-sm mx-auto">
           Мы свяжемся с вами в течение часа в рабочее время.
         </p>
-        <a
-          href="https://t.me/captigers_bot"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 bg-[#2AABEE] hover:bg-[#229ED9] text-white font-bold py-4 px-8 rounded-xl shadow-lg"
-        >
-          <MessageCircle size={20} />
-          Написать в Telegram
-        </a>
+        <div className="flex items-center justify-center gap-2 text-gray-500 text-sm mb-6">
+          <Phone size={14} />
+          <span>Хотите быстрее? Звоните: <a href="tel:+79001234567" className="text-white font-bold hover:text-[#FF4D4D]">+7 (900) 123-45-67</a></span>
+        </div>
         <button
           onClick={() => {
             setIsSuccess(false);
