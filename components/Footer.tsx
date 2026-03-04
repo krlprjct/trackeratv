@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
        <div className="max-w-[1440px] mx-auto px-6 md:px-12">
 
          <div ref={formRevealRef} className="reveal bg-[#111] rounded-[2.5rem] p-8 md:p-16 mb-20 flex flex-col lg:flex-row gap-16 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#FF4D4D] opacity-5 blur-[150px] rounded-full pointer-events-none"></div>
+            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#FF4D4D] opacity-[0.03] rounded-full pointer-events-none"></div>
 
             <div className="lg:w-1/2 relative z-10">
                <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">

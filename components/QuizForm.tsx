@@ -166,7 +166,7 @@ const QuizForm: React.FC = () => {
               <button
                 key={opt.value}
                 onClick={() => handleStep1(opt.value)}
-                className="w-full text-left p-4 rounded-2xl border-2 border-gray-700 hover:border-[#FF4D4D] bg-gray-800/50 hover:bg-gray-800"
+                className="w-full text-left p-4 rounded-xl border-2 border-gray-700 active:border-[#FF4D4D] bg-gray-800"
               >
                 <div className="font-bold text-white text-lg">{opt.label}</div>
                 <div className="text-sm text-gray-400 mt-1">{opt.desc}</div>
@@ -184,7 +184,7 @@ const QuizForm: React.FC = () => {
               <button
                 key={opt.value}
                 onClick={() => handleStep2(opt.value)}
-                className="w-full text-left p-4 rounded-2xl border-2 border-gray-700 hover:border-[#FF4D4D] bg-gray-800/50 hover:bg-gray-800"
+                className="w-full text-left p-4 rounded-xl border-2 border-gray-700 active:border-[#FF4D4D] bg-gray-800"
               >
                 <div className="font-bold text-white text-lg">{opt.label}</div>
                 <div className="text-sm text-gray-400 mt-1">{opt.desc}</div>
@@ -258,7 +258,7 @@ const QuizForm: React.FC = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-[#FF4D4D] hover:bg-red-600 text-white font-bold py-4 px-4 rounded-xl flex items-center justify-center gap-2 mt-4 shadow-lg shadow-red-500/20 text-base disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-[#FF4D4D] active:bg-red-600 text-white font-bold py-4 px-4 rounded-xl flex items-center justify-center gap-2 mt-4 text-base disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? 'Отправка...' : 'Получить предложение'}
             <Send size={18} className="flex-shrink-0" />
