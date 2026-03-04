@@ -1,14 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Send, ArrowLeft, CheckCircle, AlertCircle, Phone } from 'lucide-react';
 import { useYandexMetrika } from '../hooks/useYandexMetrika';
-
-interface QuizData {
-  requestType: string;
-  clientType: string;
-  name: string;
-  phone: string;
-  consent: boolean;
-}
 
 const QuizForm: React.FC = () => {
   const { reachGoal } = useYandexMetrika();
@@ -16,13 +8,15 @@ const QuizForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [data, setData] = useState<QuizData>({
-    requestType: '',
-    clientType: '',
-    name: '',
-    phone: '',
-    consent: false,
-  });
+
+  // Данные шагов 1-2 хранятся в ref (не вызывают ре-рендер)
+  const requestTypeRef = useRef('');
+  const clientTypeRef = useRef('');
+
+  // Инпуты шага 3 — uncontrolled (без setState на каждый символ)
+  const nameRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
+  const consentRef = useRef<HTMLInputElement>(null);
 
   const requestOptions = [
     { value: 'testdrive', label: 'Тест-драйв', desc: 'Приезжайте и оцените вездеход лично' },
@@ -36,52 +30,54 @@ const QuizForm: React.FC = () => {
     { value: 'leasing', label: 'Лизинг', desc: 'Рассрочка через лизинговую компанию' },
   ];
 
-  const formatPhone = (value: string): string => {
-    const cleaned = value.replace(/\D/g, '');
-    if (!cleaned) return '';
-    let formatted = '+7';
-    if (cleaned.length > 1) formatted += ' (' + cleaned.substring(1, 4);
-    if (cleaned.length >= 5) formatted += ') ' + cleaned.substring(4, 7);
-    if (cleaned.length >= 8) formatted += '-' + cleaned.substring(7, 9);
-    if (cleaned.length >= 10) formatted += '-' + cleaned.substring(9, 11);
-    return formatted;
+  const formatPhone = (raw: string): string => {
+    const d = raw.replace(/\D/g, '');
+    if (!d) return '';
+    let f = '+7';
+    if (d.length > 1) f += ' (' + d.substring(1, 4);
+    if (d.length >= 5) f += ') ' + d.substring(4, 7);
+    if (d.length >= 8) f += '-' + d.substring(7, 9);
+    if (d.length >= 10) f += '-' + d.substring(9, 11);
+    return f;
   };
 
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let cleaned = e.target.value.replace(/\D/g, '');
+  const handlePhoneInput = () => {
+    const el = phoneRef.current;
+    if (!el) return;
+    let cleaned = el.value.replace(/\D/g, '');
     if (cleaned.startsWith('8')) cleaned = '7' + cleaned.substring(1);
-    if (!cleaned) { setData(prev => ({ ...prev, phone: '' })); return; }
+    if (!cleaned) { el.value = ''; return; }
     if (!cleaned.startsWith('7')) cleaned = '7' + cleaned;
-    setData(prev => ({ ...prev, phone: formatPhone(cleaned) }));
-    if (errors.phone) setErrors(prev => { const n = { ...prev }; delete n.phone; return n; });
+    if (cleaned.length > 11) cleaned = cleaned.substring(0, 11);
+    el.value = formatPhone(cleaned);
   };
 
   const handleStep1 = (value: string) => {
-    setData(prev => ({ ...prev, requestType: value }));
+    requestTypeRef.current = value;
     setStep(2);
   };
 
   const handleStep2 = (value: string) => {
-    setData(prev => ({ ...prev, clientType: value }));
+    clientTypeRef.current = value;
     setStep(3);
   };
 
   const nameBlacklist = ['test', 'тест', 'asdf', 'qwerty', 'абв', 'ыва', 'admin', 'null', 'fuck', 'shit', 'хуй', 'пизд', 'ебан'];
 
-  const validateStep3 = (): boolean => {
+  const validate = (): boolean => {
     const newErrors: Record<string, string> = {};
-    const name = data.name.trim();
+    const name = (nameRef.current?.value || '').trim();
     if (!name) newErrors.name = 'Введите ваше имя';
     else if (name.length < 2) newErrors.name = 'Минимум 2 символа';
     else if (!/^[А-ЯЁа-яёA-Za-z\s-]+$/.test(name)) newErrors.name = 'Только буквы';
     else if (nameBlacklist.some(b => name.toLowerCase().includes(b))) newErrors.name = 'Введите настоящее имя';
 
-    const phone = data.phone.replace(/\D/g, '');
+    const phone = (phoneRef.current?.value || '').replace(/\D/g, '');
     if (!phone) newErrors.phone = 'Введите номер телефона';
     else if (phone.length !== 11) newErrors.phone = 'Номер должен содержать 11 цифр';
     else if (!phone.startsWith('7') && !phone.startsWith('8')) newErrors.phone = 'Номер должен начинаться с +7';
 
-    if (!data.consent) newErrors.consent = 'Необходимо согласие';
+    if (!consentRef.current?.checked) newErrors.consent = 'Необходимо согласие';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -89,7 +85,7 @@ const QuizForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateStep3()) return;
+    if (!validate()) return;
     setIsSubmitting(true);
 
     try {
@@ -98,10 +94,10 @@ const QuizForm: React.FC = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: data.name.trim(),
-          phone: data.phone.replace(/\D/g, ''),
-          request_type: data.requestType,
-          client_type: data.clientType,
+          name: (nameRef.current?.value || '').trim(),
+          phone: (phoneRef.current?.value || '').replace(/\D/g, ''),
+          request_type: requestTypeRef.current,
+          client_type: clientTypeRef.current,
           source: document.referrer || 'Прямой переход',
           page_url: window.location.href,
           utm_source: urlParams.get('utm_source') || '',
@@ -137,21 +133,10 @@ const QuizForm: React.FC = () => {
         <p className="text-gray-400 text-lg mb-6 max-w-sm mx-auto">
           Мы свяжемся с вами в течение часа в рабочее время.
         </p>
-        <div className="flex items-center justify-center gap-2 text-gray-500 text-sm mb-6">
+        <div className="flex items-center justify-center gap-2 text-gray-500 text-sm">
           <Phone size={14} />
-          <span>Хотите быстрее? Звоните: <a href="tel:+79001234567" className="text-white font-bold hover:text-[#FF4D4D]">+7 (900) 123-45-67</a></span>
+          <span>Хотите быстрее? Звоните: <a href="tel:+79222200491" className="text-white font-bold hover:text-[#FF4D4D]">+7 (922) 220-04-91</a> — Владимир</span>
         </div>
-        <button
-          onClick={() => {
-            setIsSuccess(false);
-            setStep(1);
-            setData({ requestType: '', clientType: '', name: '', phone: '', consent: false });
-            setErrors({});
-          }}
-          className="block mx-auto mt-4 text-sm text-gray-500 hover:text-gray-300"
-        >
-          Отправить ещё одну заявку
-        </button>
       </div>
     );
   }
@@ -219,13 +204,10 @@ const QuizForm: React.FC = () => {
           <div>
             <label className="block text-sm font-bold text-gray-300 mb-1.5">Имя</label>
             <input
+              ref={nameRef}
               type="text"
               placeholder="Иван"
-              value={data.name}
-              onChange={(e) => {
-                setData(prev => ({ ...prev, name: e.target.value }));
-                if (errors.name) setErrors(prev => { const n = { ...prev }; delete n.name; return n; });
-              }}
+              defaultValue=""
               className={`w-full px-4 py-4 rounded-xl bg-gray-800 border-2 text-white placeholder-gray-500 outline-none ${errors.name ? 'border-red-500' : 'border-gray-700 focus:border-[#FF4D4D]'}`}
             />
             {errors.name && (
@@ -238,10 +220,11 @@ const QuizForm: React.FC = () => {
           <div>
             <label className="block text-sm font-bold text-gray-300 mb-1.5">Телефон</label>
             <input
+              ref={phoneRef}
               type="tel"
               placeholder="+7 (___) ___-__-__"
-              value={data.phone}
-              onChange={handlePhoneChange}
+              defaultValue=""
+              onInput={handlePhoneInput}
               className={`w-full px-4 py-4 rounded-xl bg-gray-800 border-2 text-white placeholder-gray-500 outline-none ${errors.phone ? 'border-red-500' : 'border-gray-700 focus:border-[#FF4D4D]'}`}
             />
             {errors.phone && (
@@ -254,12 +237,9 @@ const QuizForm: React.FC = () => {
           <div className="pt-2">
             <label className="flex items-start gap-3 cursor-pointer">
               <input
+                ref={consentRef}
                 type="checkbox"
-                checked={data.consent}
-                onChange={(e) => {
-                  setData(prev => ({ ...prev, consent: e.target.checked }));
-                  if (errors.consent) setErrors(prev => { const n = { ...prev }; delete n.consent; return n; });
-                }}
+                defaultChecked={false}
                 className="mt-0.5 w-5 h-5 rounded border-2 border-gray-600 accent-[#FF4D4D] cursor-pointer"
               />
               <span className="text-xs text-gray-400 leading-relaxed">
