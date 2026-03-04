@@ -53,7 +53,7 @@ const QuizForm: React.FC = () => {
     if (!cleaned) { setData(prev => ({ ...prev, phone: '' })); return; }
     if (!cleaned.startsWith('7')) cleaned = '7' + cleaned;
     setData(prev => ({ ...prev, phone: formatPhone(cleaned) }));
-    setErrors(prev => { const n = { ...prev }; delete n.phone; return n; });
+    if (errors.phone) setErrors(prev => { const n = { ...prev }; delete n.phone; return n; });
   };
 
   const handleStep1 = (value: string) => {
@@ -125,29 +125,6 @@ const QuizForm: React.FC = () => {
     }
   };
 
-  const ProgressBar = () => (
-    <div className="mb-8">
-      <div className="flex items-center justify-between mb-3">
-        <span className="text-sm text-gray-400 font-medium">Шаг {step} из 3</span>
-        {step > 1 && (
-          <button
-            onClick={() => setStep(step - 1)}
-            className="flex items-center gap-1 text-sm text-gray-400 hover:text-white transition-colors"
-          >
-            <ArrowLeft size={14} />
-            Назад
-          </button>
-        )}
-      </div>
-      <div className="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden">
-        <div
-          className="h-full bg-[#FF4D4D] rounded-full transition-all duration-500 ease-out"
-          style={{ width: `${(step / 3) * 100}%` }}
-        />
-      </div>
-    </div>
-  );
-
   if (isSuccess) {
     return (
       <div className="text-center py-8">
@@ -164,7 +141,7 @@ const QuizForm: React.FC = () => {
           href="https://t.me/captigers_bot"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 bg-[#2AABEE] hover:bg-[#229ED9] text-white font-bold py-4 px-8 rounded-xl transition-all shadow-lg"
+          className="inline-flex items-center gap-2 bg-[#2AABEE] hover:bg-[#229ED9] text-white font-bold py-4 px-8 rounded-xl shadow-lg"
         >
           <MessageCircle size={20} />
           Написать в Telegram
@@ -176,7 +153,7 @@ const QuizForm: React.FC = () => {
             setData({ requestType: '', clientType: '', name: '', phone: '', consent: false });
             setErrors({});
           }}
-          className="block mx-auto mt-4 text-sm text-gray-500 hover:text-gray-300 transition-colors"
+          className="block mx-auto mt-4 text-sm text-gray-500 hover:text-gray-300"
         >
           Отправить ещё одну заявку
         </button>
@@ -186,22 +163,32 @@ const QuizForm: React.FC = () => {
 
   return (
     <div>
-      <ProgressBar />
+      {/* Progress */}
+      <div className="mb-6">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-sm text-gray-400 font-medium">Шаг {step} из 3</span>
+          {step > 1 && (
+            <button onClick={() => setStep(step - 1)} className="flex items-center gap-1 text-sm text-gray-400 hover:text-white">
+              <ArrowLeft size={14} /> Назад
+            </button>
+          )}
+        </div>
+        <div className="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden">
+          <div className="h-full bg-[#FF4D4D] rounded-full" style={{ width: `${(step / 3) * 100}%` }} />
+        </div>
+      </div>
 
-      {/* Step 1: Что нужно? */}
       {step === 1 && (
         <div>
-          <h3 className="text-xl font-bold text-white mb-6">Что вам нужно?</h3>
+          <h3 className="text-xl font-bold text-white mb-5">Что вам нужно?</h3>
           <div className="space-y-3">
             {requestOptions.map((opt) => (
               <button
                 key={opt.value}
                 onClick={() => handleStep1(opt.value)}
-                className="w-full text-left p-5 rounded-2xl border-2 border-gray-700 hover:border-[#FF4D4D] bg-gray-800/50 hover:bg-gray-800 transition-all duration-200 group"
+                className="w-full text-left p-4 rounded-2xl border-2 border-gray-700 hover:border-[#FF4D4D] bg-gray-800/50 hover:bg-gray-800"
               >
-                <div className="font-bold text-white text-lg group-hover:text-[#FF4D4D] transition-colors">
-                  {opt.label}
-                </div>
+                <div className="font-bold text-white text-lg">{opt.label}</div>
                 <div className="text-sm text-gray-400 mt-1">{opt.desc}</div>
               </button>
             ))}
@@ -209,20 +196,17 @@ const QuizForm: React.FC = () => {
         </div>
       )}
 
-      {/* Step 2: Тип клиента */}
       {step === 2 && (
         <div>
-          <h3 className="text-xl font-bold text-white mb-6">Вы покупаете как?</h3>
+          <h3 className="text-xl font-bold text-white mb-5">Вы покупаете как?</h3>
           <div className="space-y-3">
             {clientOptions.map((opt) => (
               <button
                 key={opt.value}
                 onClick={() => handleStep2(opt.value)}
-                className="w-full text-left p-5 rounded-2xl border-2 border-gray-700 hover:border-[#FF4D4D] bg-gray-800/50 hover:bg-gray-800 transition-all duration-200 group"
+                className="w-full text-left p-4 rounded-2xl border-2 border-gray-700 hover:border-[#FF4D4D] bg-gray-800/50 hover:bg-gray-800"
               >
-                <div className="font-bold text-white text-lg group-hover:text-[#FF4D4D] transition-colors">
-                  {opt.label}
-                </div>
+                <div className="font-bold text-white text-lg">{opt.label}</div>
                 <div className="text-sm text-gray-400 mt-1">{opt.desc}</div>
               </button>
             ))}
@@ -230,19 +214,12 @@ const QuizForm: React.FC = () => {
         </div>
       )}
 
-      {/* Step 3: Контакты */}
       {step === 3 && (
         <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-          <input
-            type="text"
-            name="website"
-            style={{ position: 'absolute', left: '-9999px' }}
-            tabIndex={-1}
-            autoComplete="off"
-          />
+          <input type="text" name="website" style={{ position: 'absolute', left: '-9999px' }} tabIndex={-1} autoComplete="off" />
 
           <h3 className="text-xl font-bold text-white mb-2">Оставьте контакты</h3>
-          <p className="text-gray-400 text-sm mb-6">Перезвоним и всё обсудим.</p>
+          <p className="text-gray-400 text-sm mb-4">Перезвоним и всё обсудим.</p>
 
           <div>
             <label className="block text-sm font-bold text-gray-300 mb-1.5">Имя</label>
@@ -252,14 +229,13 @@ const QuizForm: React.FC = () => {
               value={data.name}
               onChange={(e) => {
                 setData(prev => ({ ...prev, name: e.target.value }));
-                setErrors(prev => { const n = { ...prev }; delete n.name; return n; });
+                if (errors.name) setErrors(prev => { const n = { ...prev }; delete n.name; return n; });
               }}
-              className={`w-full px-4 py-4 rounded-xl bg-gray-800 border-2 text-white placeholder-gray-500 outline-none transition-colors ${errors.name ? 'border-red-500' : 'border-gray-700 focus:border-[#FF4D4D]'}`}
+              className={`w-full px-4 py-4 rounded-xl bg-gray-800 border-2 text-white placeholder-gray-500 outline-none ${errors.name ? 'border-red-500' : 'border-gray-700 focus:border-[#FF4D4D]'}`}
             />
             {errors.name && (
               <div className="flex items-center gap-1 mt-1.5 text-red-400 text-xs">
-                <AlertCircle size={12} />
-                <span>{errors.name}</span>
+                <AlertCircle size={12} /><span>{errors.name}</span>
               </div>
             )}
           </div>
@@ -271,39 +247,35 @@ const QuizForm: React.FC = () => {
               placeholder="+7 (___) ___-__-__"
               value={data.phone}
               onChange={handlePhoneChange}
-              className={`w-full px-4 py-4 rounded-xl bg-gray-800 border-2 text-white placeholder-gray-500 outline-none transition-colors ${errors.phone ? 'border-red-500' : 'border-gray-700 focus:border-[#FF4D4D]'}`}
+              className={`w-full px-4 py-4 rounded-xl bg-gray-800 border-2 text-white placeholder-gray-500 outline-none ${errors.phone ? 'border-red-500' : 'border-gray-700 focus:border-[#FF4D4D]'}`}
             />
             {errors.phone && (
               <div className="flex items-center gap-1 mt-1.5 text-red-400 text-xs">
-                <AlertCircle size={12} />
-                <span>{errors.phone}</span>
+                <AlertCircle size={12} /><span>{errors.phone}</span>
               </div>
             )}
           </div>
 
           <div className="pt-2">
-            <label className="flex items-start gap-3 cursor-pointer group">
+            <label className="flex items-start gap-3 cursor-pointer">
               <input
                 type="checkbox"
                 checked={data.consent}
                 onChange={(e) => {
                   setData(prev => ({ ...prev, consent: e.target.checked }));
-                  setErrors(prev => { const n = { ...prev }; delete n.consent; return n; });
+                  if (errors.consent) setErrors(prev => { const n = { ...prev }; delete n.consent; return n; });
                 }}
                 className="mt-0.5 w-5 h-5 rounded border-2 border-gray-600 accent-[#FF4D4D] cursor-pointer"
               />
-              <span className="text-xs text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors">
+              <span className="text-xs text-gray-400 leading-relaxed">
                 Я согласен на обработку{' '}
-                <a href="/privacy" className="text-[#FF4D4D] underline hover:text-red-400">
-                  персональных данных
-                </a>
+                <a href="/privacy" className="text-[#FF4D4D] underline hover:text-red-400">персональных данных</a>
                 {' '}и получение информационных сообщений
               </span>
             </label>
             {errors.consent && (
               <div className="flex items-center gap-1 mt-1.5 text-red-400 text-xs">
-                <AlertCircle size={12} />
-                <span>{errors.consent}</span>
+                <AlertCircle size={12} /><span>{errors.consent}</span>
               </div>
             )}
           </div>
@@ -311,7 +283,7 @@ const QuizForm: React.FC = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-[#FF4D4D] hover:bg-red-600 text-white font-bold py-4 px-4 rounded-xl transition-all flex items-center justify-center gap-2 mt-4 shadow-lg shadow-red-500/20 text-base disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-[#FF4D4D] hover:bg-red-600 text-white font-bold py-4 px-4 rounded-xl flex items-center justify-center gap-2 mt-4 shadow-lg shadow-red-500/20 text-base disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? 'Отправка...' : 'Получить предложение'}
             <Send size={18} className="flex-shrink-0" />
