@@ -24,53 +24,13 @@
 <link rel="preload" href="/images/gallery/image1.webp" as="image" type="image/webp">
 <!-- Шрифт Inter подключается через @fontsource-variable/inter (локально, без Google CDN) -->
 
-<!-- GEO: JSON-LD Schema разметка для ИИ-поисковиков -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Product",
-  "name": "Вездеход TRACKER",
-  "description": "Российский снегоболотоход TRACKER с турбодизельным двигателем Kubota V1505-t. Запас хода до 1000 км, грузоподъёмность 1000 кг, клиренс 620 мм. Эксплуатация от −50 до +40 °C.",
-  "brand": {
-    "@type": "Brand",
-    "name": "TRACKER"
-  },
-  "manufacturer": {
-    "@type": "Organization",
-    "name": "TRACKER",
-    "url": "https://trackeratv.ru"
-  },
-  "image": "https://trackeratv.ru/images/gallery/big.JPG",
-  "url": "https://trackeratv.ru",
-  "category": "Вездеходы и снегоболотоходы",
-  "additionalProperty": [
-    { "@type": "PropertyValue", "name": "Двигатель", "value": "Kubota V1505-t турбодизель" },
-    { "@type": "PropertyValue", "name": "Запас хода", "value": "до 1000 км" },
-    { "@type": "PropertyValue", "name": "Грузоподъёмность", "value": "1000 кг" },
-    { "@type": "PropertyValue", "name": "Клиренс", "value": "620 мм" },
-    { "@type": "PropertyValue", "name": "Температура эксплуатации", "value": "от −50 до +40 °C" },
-    { "@type": "PropertyValue", "name": "Трансмиссия", "value": "МКПП / АКПП" },
-    { "@type": "PropertyValue", "name": "Гарантия", "value": "12 месяцев или 400 моточасов" }
-  ],
-  "countryOfOrigin": {
-    "@type": "Country",
-    "name": "Россия"
-  },
-  "material": "Сталь, алюминий",
-  "weight": {
-    "@type": "QuantitativeValue",
-    "value": "2200",
-    "unitCode": "KGM"
-  }
-}
-</script>
-
+<!-- GEO: JSON-LD Schema разметка для ИИ-поисковиков и Google Rich Results -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "TRACKER — вездеходы",
-  "description": "Производство и продажа снегоболотоходов TRACKER с двигателем Kubota. Тест-драйв в Екатеринбурге.",
+  "description": "Производство и продажа снегоболотоходов TRACKER с турбодизельным двигателем Kubota V1505-t. Запас хода до 1000 км, грузоподъёмность 1000 кг, клиренс 620 мм. Тест-драйв в Екатеринбурге.",
   "url": "https://trackeratv.ru",
   "telephone": "+7-922-220-04-91",
   "address": {
@@ -79,7 +39,30 @@
     "addressCountry": "RU"
   },
   "image": "https://trackeratv.ru/images/gallery/big.JPG",
-  "priceRange": "₽₽₽₽"
+  "priceRange": "₽₽₽₽",
+  "makesOffer": {
+    "@type": "Offer",
+    "itemOffered": {
+      "@type": "Vehicle",
+      "name": "Вездеход TRACKER",
+      "description": "Российский снегоболотоход с турбодизельным двигателем Kubota V1505-t. Эксплуатация от −50 до +40 °C.",
+      "brand": { "@type": "Brand", "name": "TRACKER" },
+      "vehicleEngine": {
+        "@type": "EngineSpecification",
+        "name": "Kubota V1505-t турбодизель"
+      },
+      "fuelType": "Дизель",
+      "payload": { "@type": "QuantitativeValue", "value": "1000", "unitCode": "KGM" },
+      "additionalProperty": [
+        { "@type": "PropertyValue", "name": "Запас хода", "value": "до 1000 км" },
+        { "@type": "PropertyValue", "name": "Клиренс", "value": "620 мм" },
+        { "@type": "PropertyValue", "name": "Трансмиссия", "value": "МКПП / АКПП" },
+        { "@type": "PropertyValue", "name": "Гарантия", "value": "12 месяцев или 400 моточасов" },
+        { "@type": "PropertyValue", "name": "Температура эксплуатации", "value": "от −50 до +40 °C" },
+        { "@type": "PropertyValue", "name": "Страна производства", "value": "Россия" }
+      ]
+    }
+  }
 }
 </script>
 
