@@ -75,7 +75,7 @@ const Navbar: React.FC = () => {
             {/* CTA кнопка */}
             <a
               href="#contacts"
-              className="bg-[#CC4422] hover:bg-[#AA3819] text-white rounded-full font-semibold transition-all shadow-lg shadow-orange-800/20 flex items-center
+              className="bg-[#FF4D4D] hover:bg-red-600 text-white rounded-full font-semibold transition-all shadow-lg shadow-red-500/20 flex items-center
                 px-4 h-10 text-sm md:px-6 md:py-2.5 md:text-xs md:uppercase md:tracking-wide md:font-bold
               "
             >
@@ -131,7 +131,7 @@ const Navbar: React.FC = () => {
                <a
                  href="#contacts"
                  onClick={() => setIsMobileMenuOpen(false)}
-                 className="block text-center w-full bg-[#CC4422] text-white py-4 rounded-xl font-bold uppercase tracking-wide"
+                 className="block text-center w-full bg-[#FF4D4D] text-white py-4 rounded-xl font-bold uppercase tracking-wide"
                >
                  Оставить заявку
                </a>

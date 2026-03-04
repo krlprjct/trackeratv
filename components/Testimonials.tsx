@@ -156,7 +156,7 @@ const Testimonials: React.FC = () => {
 
           <button
             onClick={openVideo}
-            className="flex items-center gap-2 text-[#1C1C1C] font-semibold text-base hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-[#CC4422] focus:ring-offset-2 rounded-sm"
+            className="flex items-center gap-2 text-[#1C1C1C] font-semibold text-base hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-[#FF4D4D] focus:ring-offset-2 rounded-sm"
             aria-label="Открыть видео реального применения вездехода TRACKER"
           >
             <PlayCircle size={20} />

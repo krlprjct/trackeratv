@@ -17,7 +17,7 @@ export default {
           200: '#F2F0EB',
         },
         luminous: {
-          red: '#CC4422',
+          red: '#FF4D4D',
           dark: '#0A0A0A',
         },
       },

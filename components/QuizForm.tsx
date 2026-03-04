@@ -141,7 +141,7 @@ const QuizForm: React.FC = () => {
       </div>
       <div className="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden">
         <div
-          className="h-full bg-[#CC4422] rounded-full transition-all duration-500 ease-out"
+          className="h-full bg-[#FF4D4D] rounded-full transition-all duration-500 ease-out"
           style={{ width: `${(step / 3) * 100}%` }}
         />
       </div>
@@ -197,9 +197,9 @@ const QuizForm: React.FC = () => {
               <button
                 key={opt.value}
                 onClick={() => handleStep1(opt.value)}
-                className="w-full text-left p-5 rounded-2xl border-2 border-gray-700 hover:border-[#CC4422] bg-gray-800/50 hover:bg-gray-800 transition-all duration-200 group"
+                className="w-full text-left p-5 rounded-2xl border-2 border-gray-700 hover:border-[#FF4D4D] bg-gray-800/50 hover:bg-gray-800 transition-all duration-200 group"
               >
-                <div className="font-bold text-white text-lg group-hover:text-[#CC4422] transition-colors">
+                <div className="font-bold text-white text-lg group-hover:text-[#FF4D4D] transition-colors">
                   {opt.label}
                 </div>
                 <div className="text-sm text-gray-400 mt-1">{opt.desc}</div>
@@ -218,9 +218,9 @@ const QuizForm: React.FC = () => {
               <button
                 key={opt.value}
                 onClick={() => handleStep2(opt.value)}
-                className="w-full text-left p-5 rounded-2xl border-2 border-gray-700 hover:border-[#CC4422] bg-gray-800/50 hover:bg-gray-800 transition-all duration-200 group"
+                className="w-full text-left p-5 rounded-2xl border-2 border-gray-700 hover:border-[#FF4D4D] bg-gray-800/50 hover:bg-gray-800 transition-all duration-200 group"
               >
-                <div className="font-bold text-white text-lg group-hover:text-[#CC4422] transition-colors">
+                <div className="font-bold text-white text-lg group-hover:text-[#FF4D4D] transition-colors">
                   {opt.label}
                 </div>
                 <div className="text-sm text-gray-400 mt-1">{opt.desc}</div>
@@ -254,7 +254,7 @@ const QuizForm: React.FC = () => {
                 setData(prev => ({ ...prev, name: e.target.value }));
                 setErrors(prev => { const n = { ...prev }; delete n.name; return n; });
               }}
-              className={`w-full px-4 py-4 rounded-xl bg-gray-800 border-2 text-white placeholder-gray-500 outline-none transition-colors ${errors.name ? 'border-red-500' : 'border-gray-700 focus:border-[#CC4422]'}`}
+              className={`w-full px-4 py-4 rounded-xl bg-gray-800 border-2 text-white placeholder-gray-500 outline-none transition-colors ${errors.name ? 'border-red-500' : 'border-gray-700 focus:border-[#FF4D4D]'}`}
             />
             {errors.name && (
               <div className="flex items-center gap-1 mt-1.5 text-red-400 text-xs">
@@ -271,7 +271,7 @@ const QuizForm: React.FC = () => {
               placeholder="+7 (___) ___-__-__"
               value={data.phone}
               onChange={handlePhoneChange}
-              className={`w-full px-4 py-4 rounded-xl bg-gray-800 border-2 text-white placeholder-gray-500 outline-none transition-colors ${errors.phone ? 'border-red-500' : 'border-gray-700 focus:border-[#CC4422]'}`}
+              className={`w-full px-4 py-4 rounded-xl bg-gray-800 border-2 text-white placeholder-gray-500 outline-none transition-colors ${errors.phone ? 'border-red-500' : 'border-gray-700 focus:border-[#FF4D4D]'}`}
             />
             {errors.phone && (
               <div className="flex items-center gap-1 mt-1.5 text-red-400 text-xs">
@@ -290,11 +290,11 @@ const QuizForm: React.FC = () => {
                   setData(prev => ({ ...prev, consent: e.target.checked }));
                   setErrors(prev => { const n = { ...prev }; delete n.consent; return n; });
                 }}
-                className="mt-0.5 w-5 h-5 rounded border-2 border-gray-600 accent-[#CC4422] cursor-pointer"
+                className="mt-0.5 w-5 h-5 rounded border-2 border-gray-600 accent-[#FF4D4D] cursor-pointer"
               />
               <span className="text-xs text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors">
                 Я согласен на обработку{' '}
-                <a href="/privacy" className="text-[#CC4422] underline hover:text-orange-300">
+                <a href="/privacy" className="text-[#FF4D4D] underline hover:text-red-400">
                   персональных данных
                 </a>
                 {' '}и получение информационных сообщений
@@ -311,7 +311,7 @@ const QuizForm: React.FC = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-[#CC4422] hover:bg-[#AA3819] text-white font-bold py-4 px-4 rounded-xl transition-all flex items-center justify-center gap-2 mt-4 shadow-lg shadow-orange-800/20 text-base disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-[#FF4D4D] hover:bg-red-600 text-white font-bold py-4 px-4 rounded-xl transition-all flex items-center justify-center gap-2 mt-4 shadow-lg shadow-red-500/20 text-base disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? 'Отправка...' : 'Получить предложение'}
             <Send size={18} className="flex-shrink-0" />

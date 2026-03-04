@@ -27,7 +27,7 @@ const Privacy: React.FC = () => {
             <p>
               <strong>1.2.</strong> Настоящая политика Оператора в отношении обработки персональных данных 
               (далее — Политика) применяется ко всей информации, которую Оператор может получить о посетителях 
-              веб-сайта <a href="https://trackeratv.ru" className="text-[#CC4422] underline">https://trackeratv.ru</a>.
+              веб-сайта <a href="https://trackeratv.ru" className="text-[#FF4D4D] underline">https://trackeratv.ru</a>.
             </p>
           </section>
 
@@ -133,7 +133,7 @@ const Privacy: React.FC = () => {
             <p className="mb-4">
               <strong>8.3.</strong> В случае выявления неточностей в персональных данных, Пользователь может актуализировать их 
               самостоятельно, путем направления Оператору уведомления на адрес электронной почты{' '}
-              <a href="mailto:zerbig66@yandex.ru" className="text-[#CC4422] underline">zerbig66@yandex.ru</a>{' '}
+              <a href="mailto:zerbig66@yandex.ru" className="text-[#FF4D4D] underline">zerbig66@yandex.ru</a>{' '}
               с пометкой «Актуализация персональных данных».
             </p>
             <p className="mb-4">
@@ -143,7 +143,7 @@ const Privacy: React.FC = () => {
             <p className="mb-4">
               Пользователь может в любой момент отозвать свое согласие на обработку персональных данных, направив Оператору 
               уведомление посредством электронной почты на электронный адрес{' '}
-              <a href="mailto:zerbig66@yandex.ru" className="text-[#CC4422] underline">zerbig66@yandex.ru</a>{' '}
+              <a href="mailto:zerbig66@yandex.ru" className="text-[#FF4D4D] underline">zerbig66@yandex.ru</a>{' '}
               с пометкой «Отзыв согласия на обработку персональных данных».
             </p>
           </section>
@@ -154,7 +154,7 @@ const Privacy: React.FC = () => {
             <p className="mb-4">
               <strong>12.1.</strong> Пользователь может получить любые разъяснения по интересующим вопросам, касающимся обработки 
               его персональных данных, обратившись к Оператору с помощью электронной почты{' '}
-              <a href="mailto:zerbig66@yandex.ru" className="text-[#CC4422] underline">zerbig66@yandex.ru</a>.
+              <a href="mailto:zerbig66@yandex.ru" className="text-[#FF4D4D] underline">zerbig66@yandex.ru</a>.
             </p>
             <p className="mb-4">
               <strong>12.2.</strong> В данном документе будут отражены любые изменения политики обработки персональных данных Оператором. 
@@ -162,7 +162,7 @@ const Privacy: React.FC = () => {
             </p>
             <p>
               <strong>12.3.</strong> Актуальная версия Политики в свободном доступе расположена в сети Интернет по адресу{' '}
-              <a href="https://trackeratv.ru/privacy" className="text-[#CC4422] underline">https://trackeratv.ru/privacy</a>.
+              <a href="https://trackeratv.ru/privacy" className="text-[#FF4D4D] underline">https://trackeratv.ru/privacy</a>.
             </p>
           </section>
 
@@ -173,9 +173,9 @@ const Privacy: React.FC = () => {
               <p className="mb-2"><strong>Оператор персональных данных:</strong></p>
               <p className="mb-0">
                 ИП Олейников В. А.<br/>
-                Email: <a href="mailto:zerbig66@yandex.ru" className="text-[#CC4422] underline">zerbig66@yandex.ru</a><br/>
+                Email: <a href="mailto:zerbig66@yandex.ru" className="text-[#FF4D4D] underline">zerbig66@yandex.ru</a><br/>
                 Телефон: +7 (922) 220-04-91<br/>
-                Сайт: <a href="https://trackeratv.ru" className="text-[#CC4422] underline">https://trackeratv.ru</a>
+                Сайт: <a href="https://trackeratv.ru" className="text-[#FF4D4D] underline">https://trackeratv.ru</a>
               </p>
             </div>
           </section>
@@ -186,7 +186,7 @@ const Privacy: React.FC = () => {
         <div className="mt-12 pt-6 border-t border-gray-200">
           <a 
             href="/"
-            className="text-[#CC4422] hover:underline font-semibold inline-flex items-center gap-2"
+            className="text-[#FF4D4D] hover:underline font-semibold inline-flex items-center gap-2"
           >
             ← Вернуться на главную
           </a>

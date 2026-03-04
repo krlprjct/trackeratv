@@ -32,12 +32,12 @@ const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, ans
     <div className="border-b border-gray-200 last:border-0">
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full py-6 flex justify-between items-center text-left hover:text-[#CC4422] transition-colors gap-4 group"
+        className="w-full py-6 flex justify-between items-center text-left hover:text-[#FF4D4D] transition-colors gap-4 group"
       >
-        <span className="text-lg md:text-xl font-bold text-[#1C1C1C] group-hover:text-[#CC4422] transition-colors">
+        <span className="text-lg md:text-xl font-bold text-[#1C1C1C] group-hover:text-[#FF4D4D] transition-colors">
           {question}
         </span>
-        <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ${isOpen ? 'bg-[#CC4422] text-white rotate-180' : 'bg-gray-100 text-black'}`}>
+        <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ${isOpen ? 'bg-[#FF4D4D] text-white rotate-180' : 'bg-gray-100 text-black'}`}>
           {isOpen ? <Minus size={18} /> : <Plus size={18} />}
         </div>
       </button>
