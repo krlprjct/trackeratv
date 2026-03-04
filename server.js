@@ -1,6 +1,7 @@
 // server.js — Минимальный Express-сервер для VPS
 // Раздаёт статику из dist/ и обрабатывает POST /api/lead
 
+import 'dotenv/config';
 import express from 'express';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -102,6 +103,11 @@ ${data.utm_source || data.utm_medium || data.utm_campaign ? `<b>UTM:</b> ${data.
       }),
     }
   );
+
+  if (!response1.ok) {
+    const errBody = await response1.text();
+    console.error('Telegram API error:', response1.status, errBody);
+  }
 
   // Отправляем на второй чат
   const chatId2 = process.env.TELEGRAM_CHAT_ID_2;
@@ -228,4 +234,6 @@ app.get('*', (req, res) => {
 // ─── Старт ───
 app.listen(PORT, () => {
   console.log(`✅ TRACKER server running on port ${PORT}`);
+  console.log(`📡 Telegram: ${process.env.TELEGRAM_BOT_TOKEN ? 'TOKEN OK (' + process.env.TELEGRAM_BOT_TOKEN.slice(0, 8) + '...)' : '❌ TOKEN MISSING'}`);
+  console.log(`📡 Chat ID: ${process.env.TELEGRAM_CHAT_ID || '❌ MISSING'}`);
 });

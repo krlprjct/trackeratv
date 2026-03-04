@@ -7,10 +7,11 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "node --env-file=.env server.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.1.1",
+    "dotenv": "^16.4.7",
     "express": "^4",
     "lucide-react": "^0.563.0",
     "react": "^19.2.4",
